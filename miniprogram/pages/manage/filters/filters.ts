@@ -104,6 +104,7 @@ Page({
         cateKey: 'campus',
         name: '校区',
         category: [],
+        adding: false,
       };
       // 用个object当作字典，把area分下类
       var classifier = {};
@@ -149,6 +150,43 @@ Page({
     var filters = this.data.filters;
     var category = filters[filters_sub].category[index];
     category.adding = true;
+    this.setData({ filters: filters });
+  },
+
+  // 增加一级校区
+  addCampusInput(e) {
+    var filters = this.data.filters;
+    const filters_sub = e.currentTarget.dataset.filterssub;
+    const mainF = filters[filters_sub];
+    mainF.adding = true;
+    this.setData({ filters: filters });
+  },
+
+  addCampusConfirm(e) {
+    var filters = this.data.filters;
+    const name = (e.detail.value.name || '').trim();
+    const filters_sub = e.currentTarget.dataset.filterssub;
+    const mainF = filters[filters_sub];
+
+    if (name == '') { // 名字不能为空
+      return false;
+    }
+    for (let k = 0, length = mainF.category.length; k < length; ++k) {
+      if (name == mainF.category[k].name) {
+        wx.showToast({
+          title: '名字不能重复',
+          icon: 'none'
+        });
+        return false;
+      }
+    }
+
+    mainF.category.push({
+      name: name,
+      items: [],
+      adding: false,
+    });
+    mainF.adding = false;
     this.setData({ filters: filters });
   },
 
@@ -258,6 +296,7 @@ Page({
     // 处理回数据库中的原始格式
     var area = [];
     var colour = [];
+    var campuses = [];
     for (const mainF of filters) {
       for (const category of mainF.category) {
         for (const item of category.items) {
@@ -270,6 +309,9 @@ Page({
             colour.push(item.name);
           }
         }
+        if (mainF.key == 'area') {
+          campuses.push(category.name);
+        }
       }
     }
     const that = this;
@@ -278,7 +320,8 @@ Page({
       data: {
         to_upload: {
           area: area,
-          colour: colour
+          colour: colour,
+          campuses: campuses,
         }
       }
     }).then(res => {

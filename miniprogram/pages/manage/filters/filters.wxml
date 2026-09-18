@@ -1,6 +1,11 @@
 <block wx:if="{{auth}}">
   <view class='mainF-block' wx:for='{{filters}}' wx:for-item='mainF' wx:for-index="filters_sub" wx:key='name'>
     <view class="title">{{mainF.name}}选项</view>
+    <form wx:if="{{mainF.key == 'area' && mainF.adding}}" class='main-add-form' data-filterssub='{{filters_sub}}' bindsubmit="addCampusConfirm">
+      <input class='content' name='name' placeholder='请输入校区名称'></input>
+      <button class='submit' form-type='submit'>确定</button>
+    </form>
+    <button wx:if="{{mainF.key == 'area' && !mainF.adding}}" class='long' bindtap='addCampusInput' data-filterssub='{{filters_sub}}'>加校区选项</button>
     <view class='container'>
       <view class='category-box' wx:for="{{mainF.category}}" wx:for-item="ctg" wx:for-index='cateindex' wx:key='name'>
         <view class="category">{{ctg.name}}</view>
