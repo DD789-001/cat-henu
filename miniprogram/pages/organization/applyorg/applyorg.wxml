@@ -13,7 +13,7 @@
   <block wx:else>
     <!-- <view>--已经授权--</view> -->
     <view class='userInfo'>
-      <image src='{{user.userInfo.avatarUrl}}'></image>
+      <image src="{{user.userInfo.avatarUrl || '../../../images/default.png'}}"></image>
       <view>
         <text>{{user.userInfo.nickName}}\n---正在填写串门信息</text>
       </view>

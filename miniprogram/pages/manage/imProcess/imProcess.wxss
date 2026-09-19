@@ -1,28 +1,38 @@
+/* miniprogram/pages/manage/imProcess/imProcess.wxss */
 page {
   width: 750rpx;
   padding: 30rpx 30rpx;
   box-sizing: border-box;
+  background-color: var(--color-bg);
 }
 
 image {
   width: 690rpx;
   height: 690rpx;
-  background-color: linen;
+  border-radius: var(--radius-md);
+  background-color: var(--color-gray-light);
 }
 
 button {
   width: 45%;
   display: inline-block;
-  font-size: 35rpx;
   box-sizing: border-box;
+  font-size: var(--text-md);
+  border-radius: var(--radius-md);
+}
+
+/* 清掉小程序 button 自带的那圈灰边框，避免和圆角打架 */
+button::after {
+  border: none;
 }
 
 button.primary {
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 button.long {
-  margin: 20rpx 0 0 0;
+  margin: var(--space-3) 0 0 0;
   width: 100%;
 }
 
@@ -31,12 +41,14 @@ button.short {
   height: 100%;
   margin: 2%;
   padding: 2%;
-  font-size: 24rpx;
-  line-height: 24rpx;
+  font-size: var(--text-xs);
+  line-height: var(--text-xs);
 }
 
 .title {
   text-align: center;
-  font-weight: bold;
-  margin: 30rpx 0 10rpx 0;
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-black-light);
+  margin: var(--space-3) 0 var(--space-1) 0;
 }

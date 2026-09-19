@@ -17,7 +17,7 @@ App({
     checkUpdateVersion();
 
     this.globalData = {
-      version: "v1.6.4"
+      version: "v2.0.0"
     }
   }
 })

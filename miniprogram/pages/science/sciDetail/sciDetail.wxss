@@ -1,51 +1,66 @@
 /* miniprogram/pages/science/sciDetail/sciDetail.wxss */
 
+page {
+  background-color: var(--color-bg);
+}
+
 swiper {
   width: 692rpx;
   height: 261rpx;
-  margin: 20rpx 29rpx;
-  border-radius: 15rpx;
+  /* 692rpx + 29rpx × 2 = 750rpx，横向 29rpx 保证精确居中，用 32rpx 会溢出 */
+  margin: var(--space-3) 29rpx;
+  border-radius: var(--radius-md);
   overflow: hidden;
 }
 
 swiper image {
   width: 692rpx;
   height: 261rpx;
-  border-radius: 15rpx;
+  background-color: var(--color-gray-light);
+  border-radius: var(--radius-md);
 }
 
 /* 下面是qna环节 */
 .qna {
   width: 692rpx;
-  margin: 30rpx 29rpx;
-  border-radius: 15rpx;
-  font-size: 30rpx;
-  /* background-color: rgb(229,229,229); */
-  border: 3rpx solid var(--color-primary);
-  padding: 30rpx;
+  margin: var(--space-4) 29rpx;
+  padding: var(--space-4);
   box-sizing: border-box;
+  background-color: #ffffff;
+  border: 2rpx solid var(--color-gray-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--text-md);
+  color: var(--color-black-min);
 }
 
 .qna .question {
   text-align: center;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 
 .qna .answer {
   height: 0;
-  font-size: 26rpx;
+  font-size: var(--text-md);
   line-height: 40rpx;
+  color: var(--color-black-min);
   overflow: hidden;
 }
 
 .qna.active {
-  border: 5rpx solid var(--color-primary);
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  box-shadow: var(--shadow-md);
 }
 
 .qna.active .question {
-  font-weight: bold;
+  font-weight: 600;
+  color: var(--color-primary);
 }
 
 .qna.active .answer {
   height: auto;
-  margin-top: 20rpx;
+  margin-top: var(--space-3);
 }

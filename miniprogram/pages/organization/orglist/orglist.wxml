@@ -1,7 +1,7 @@
 <!--miniprogram/pages/organization/orglist/orglist.wxml-->
 <view wx:for="{{org_list}}" wx:key="id">
   <view class="card {{item.detail? 'detail': ''}}" bindtap="openDetail" data-index="{{index}}">
-    <image class="avatar" src="{{item.avatar}}" alt="logo"></image>
+    <image class="avatar" src="{{item.avatar}}" alt="logo" lazy-load='true'></image>
     <view class="info">
       <view class="name">{{item.name}}</view>
       <view class="slogan">{{item.slogan}}</view>

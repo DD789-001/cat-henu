@@ -16,7 +16,7 @@ bindchange='swiperLast'
 previous-margin='60rpx'
 next-margin='60rpx'>
   <swiper-item wx:for='{{cat.photo}}' wx:key="_id" bindtap='bindTapPhoto' data-index="{{item.index}}" data-kind='best'>
-    <image bindload='bindImageLoaded' mode='aspectFill' src='{{item.photo_compressed || item.photo_id}}'></image>
+    <image bindload='bindImageLoaded' mode='aspectFill' src='{{item.photo_compressed || item.photo_id}}' lazy-load='true'></image>
   </swiper-item>
 </swiper>
 
@@ -48,43 +48,46 @@ next-margin='60rpx'>
         <view class='label-block'></view>
         昵称
       </view>
-      <view class='value'>{{cat.nickname || '-'}}</view>
+      <view class='value {{cat.nickname ? "" : "empty"}}'>{{cat.nickname || '-'}}</view>
     </view>
     <view class='item'>
       <view class='label'>
         <view class='label-block'></view>
         常驻地
       </view>
-      <view class='value'>{{(cat.campus + cat.area) || '-'}}</view>
+      <view class='value {{(cat.campus + cat.area) ? "" : "empty"}}'>{{(cat.campus + cat.area) || '-'}}</view>
     </view>
     <view class='item'>
       <view class='label'>
         <view class='label-block'></view>
         生日
       </view>
-      <view class='value'>{{cat.birthday || '-'}}</view>
+      <view class='value {{cat.birthday ? "" : "empty"}}'>{{cat.birthday || '-'}}</view>
     </view>
-    <view class='item'>
-      <view class='label'>
-        <view class='label-block'></view>
-        爸爸
+    <!-- 父母/好友三项同进退：全部为空时整组不渲染，避免一行三个「-」 -->
+    <block wx:if='{{cat.father || cat.mother || cat.relation}}'>
+      <view class='item'>
+        <view class='label'>
+          <view class='label-block'></view>
+          爸爸
+        </view>
+        <view class='value {{cat.father ? "" : "empty"}}'>{{cat.father || '-'}}</view>
       </view>
-      <view class='value'>{{cat.father || '-'}}</view>
-    </view>
-    <view class='item'>
-      <view class='label'>
-        <view class='label-block'></view>
-        妈妈
+      <view class='item'>
+        <view class='label'>
+          <view class='label-block'></view>
+          妈妈
+        </view>
+        <view class='value {{cat.mother ? "" : "empty"}}'>{{cat.mother || '-'}}</view>
       </view>
-      <view class='value'>{{cat.mother || '-'}}</view>
-    </view>
-    <view class='item'>
-      <view class='label'>
-        <view class='label-block'></view>
-        好友
+      <view class='item'>
+        <view class='label'>
+          <view class='label-block'></view>
+          好友
+        </view>
+        <view class='value {{cat.relation ? "" : "empty"}}'>{{cat.relation || '-'}}</view>
       </view>
-      <view class='value'>{{cat.relation || '-'}}</view>
-    </view>
+    </block>
     
     <view class='item long'>
       <view class='label'>
@@ -93,7 +96,7 @@ next-margin='60rpx'>
       </view>
       <view class='value'>
         <!-- 新猫特点Char是空的数组（以前的是空值），修改判定方式 -->
-        <text>{{(cat.characteristics || '') + (cat.characteristics.length?'\n':'') + (cat.habit || '-')}}</text>
+        <text>{{(cat.characteristics || '') + (cat.characteristics.length && cat.habit ? '\n' : '') + (cat.habit || '') || '暂无'}}</text>
       </view>
     </view>
 
@@ -110,7 +113,7 @@ next-margin='60rpx'>
 <!-- info end -->
 
 <view class='big-header'>
-  <image mode='aspectFill' src='{{cat.photo[0].photo_compressed || cat.photo[0].photo_id}}'></image>
+  <image mode='aspectFill' src='{{cat.photo[0].photo_compressed || cat.photo[0].photo_id}}' lazy-load='true'></image>
   <view class='name-and-count'>
     <view class='name'>{{cat.name}}的相册</view>
     <view class='count'>共{{albumMax}}张照片</view>
@@ -128,7 +131,7 @@ next-margin='60rpx'>
 
 
 <view class='big-header fix' hidden='{{!showHoverHeader}}'>
-  <image mode='aspectFill' src='{{cat.photo[0].photo_compressed || cat.photo[0].photo_id}}'></image>
+  <image mode='aspectFill' src='{{cat.photo[0].photo_compressed || cat.photo[0].photo_id}}' lazy-load='true'></image>
   <view class='name-and-count'>
     <view class='name'>{{cat.name}}的相册</view>
     <view class='count'>共{{albumMax}}张照片</view>

@@ -186,15 +186,21 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '猫谱 - HENU 猫协'
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
+      path: '/pages/genealogy/genealogy',
     }
   },
 
-  onShareTimeline:function () {
+    // 分享到朋友圈（微信限制：不能指定 path，落地页只能是当前页）
+
+  onShareTimeline: function () {
+
     return {
+
       title: 'HENU 猫协 - 发现校园身边的猫咪',
-      // query: 'cat_id=' + this.data.cat._id
+
     }
+
   },
 
   checkNeedLoad() {

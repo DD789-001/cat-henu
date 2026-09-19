@@ -2,10 +2,10 @@
 
 <view id='top-block'></view>
 
-<view class='cen-block unAuth' wx:if='{{!userInfo}}'>
-  <view class='title'>完善头像和昵称后查看自己的排名</view>
+<view class='cen-block unAuth' wx:if='{{!userInfo || editMode}}'>
+  <view class='title'>{{userInfo ? '修改头像和昵称' : '完善头像和昵称后查看自己的排名'}}</view>
   <button class='avatar-picker' open-type='chooseAvatar' bindchooseavatar='chooseAvatar'>
-    <image mode='aspectFill' src="{{profileDraft.avatarUrl || '../../../images/default.png'}}"></image>
+    <image mode='aspectFill' src="{{profileDraft.avatarUrl || '../../../images/default.png'}}" lazy-load='true'></image>
   </button>
   <input
     class='nickname-input'
@@ -16,15 +16,17 @@
     bindinput='inputNickname'
   />
   <button bindtap='saveProfile'>保存资料</button>
+  <view wx:if='{{userInfo}}' class='cancel-edit' bindtap='cancelEdit'>取消</view>
 </view>
 <view class='cen-block my' wx:else>
   <view class='text left'>
     <view class='title'>排名</view>
     <view class='number {{userInfo.photo_rank && userInfo.photo_rank <= 3? "active": ""}}'>{{userInfo.photo_rank || '---'}}</view>
   </view>
-  <view class='text cen my-info'>
-    <image mode='aspectFill' src='{{userInfo.avatarUrl}}'></image>
+  <view class='text cen my-info' bindtap='startEdit' hover-class='hover-dim' hover-stay-time='80'>
+    <image mode='aspectFill' src="{{userInfo.avatarUrl || '../../../images/default.png'}}" binderror='onAvatarError' lazy-load='true'></image>
     <view class='name'>{{userInfo.nickName}}</view>
+    <view class='edit-hint'>点击修改头像昵称</view>
   </view>
   <view class='text right'>
     <view class='title'>照片</view>
@@ -37,7 +39,7 @@
   <view class='row' wx:for='{{ranks}}' wx:key='openid'>
     <view class='rank'>{{item.rank}}</view>
     <view class='avatar'>
-      <image class='avatar' mode='aspectFill' src='{{item.userInfo.avatarUrl}}'></image>
+      <image class='avatar' mode='aspectFill' src="{{item.userInfo.avatarUrl || '../../../images/default.png'}}" lazy-load='true'></image>
       <image wx:if='{{item.rank<=3}}' class='medal' mode='aspectFill' src='../../../images/info/rank/{{item.rank}}.png'></image>
     </view>
     <view class='name'>{{item.userInfo.nickName}}</view>

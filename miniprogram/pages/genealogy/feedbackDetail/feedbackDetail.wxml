@@ -12,7 +12,7 @@
   <block wx:else>
     <!-- <view>--已经授权--</view> -->
     <view class='userInfo'>
-      <image src='{{user.userInfo.avatarUrl}}'></image>
+      <image src="{{user.userInfo.avatarUrl || '../../../images/default.png'}}"></image>
       <view>
         <text>{{user.userInfo.nickName}}\n---正在为「<text style="font-weight:600;">{{cat? cat.name: 'HENU 猫协'}}</text>」反馈信息</text>
       </view>

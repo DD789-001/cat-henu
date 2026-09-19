@@ -1,28 +1,36 @@
+/* miniprogram/pages/genealogy/feedbackDetail/feedbackDetail.wxss */
+
 page {
   width: 750rpx;
-  padding: 50rpx 30rpx;
+  padding: var(--space-5) var(--space-4);
   box-sizing: border-box;
+  background-color: var(--color-bg);
 }
 
+/* ---------------- 用户信息 ---------------- */
 .userInfo {
   width: 100%;
-  padding: 0rpx 0rpx 30rpx 0;
+  padding: 0 0 var(--space-4) 0;
   display: flex;
+  align-items: center;
 }
 
 .userInfo image {
   height: 50rpx;
   width: 50rpx;
-  margin-right: 10rpx;
-  border-radius: 5rpx;
+  margin-right: var(--space-1);
+  border-radius: var(--radius-sm);
 }
 
 .userInfo text {
   height: 50rpx;
   line-height: 50rpx;
-  font-size: 35rpx;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 
+/* ---------------- 按钮 ---------------- */
 button.long {
   /* width: 690rpx; */
   width: 100%;
@@ -30,58 +38,69 @@ button.long {
 
 button.primary {
   background-color: var(--color-primary);
-}
-
-input, picker, textarea {
-  width: 650rpx;
-  border-bottom: 2rpx var(--color-primary) solid;
-  background-color: var(--color-white-dark);
-  padding: 20rpx;
-  color: var(--color-black-light);
-  /* border-radius: 20rpx; */
-  margin-top: 8rpx;
-}
-
-.inputTitle{
-  margin-left: 15rpx;
-}
-
-.feedbackColumn {
-  height: 12rem;
+  color: var(--color-on-primary);
+  border-color: var(--color-primary);
 }
 
 button {
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
   width: 100%;
   display: inline-block;
   box-sizing: border-box;
-  font-size: 35rpx;
+  font-size: var(--text-lg);
   line-height: 40rpx;
-  padding: 20rpx 30rpx;
-  border: 1rpx solid var(--color-gray-max);
-  border-radius: 20rpx;
-  margin-top: 20rpx;
+  padding: var(--space-3) var(--space-4);
+  border: 2rpx solid var(--color-primary);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-3);
 }
 
-.inputColumn {
-  font-size: 35rpx;
+/* ---------------- 表单 ---------------- */
+input, picker, textarea {
+  width: 650rpx;
+  border-bottom: 2rpx solid var(--color-gray-light);
+  background-color: var(--color-gray-light);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  font-size: var(--text-md);
+  color: var(--color-black-light);
+  margin-top: var(--space-1);
+}
+
+.inputTitle {
+  margin-left: var(--space-2);
+  font-size: var(--text-md);
+  color: var(--color-black-min);
+}
+
+.feedbackColumn {
+  height: 384rpx;
+}
+
+/* wxml 实际用的是复数 inputColumns，原单数拼写令样式从未生效，两种都保留 */
+.inputColumn,
+.inputColumns {
+  font-size: var(--text-md);
   line-height: 40rpx;
+  color: var(--color-black-min);
 }
 
 .lengthTips {
-  font-size: 26rpx;
+  font-size: var(--text-sm);
   color: var(--color-gray-max);
   float: right;
-  margin-right: 10rpx;
-  margin-top: 5rpx;
+  margin-right: var(--space-1);
+  margin-top: var(--space-1);
 }
 
 .submitButton {
-  margin-top: 20rpx;
+  margin-top: var(--space-3);
 }
 
 .footnote {
   /* margin-top: 20rpx; */
-  font-size: 26rpx;
+  font-size: var(--text-sm);
+  line-height: 1.5;
   color: var(--color-gray-max);
 }

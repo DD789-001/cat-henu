@@ -4,14 +4,14 @@
 <view class='block'>
   <view class='title'>开发团队</view>
   <view class='desc'>
-    <text>程序开发：rainbow\n以及各校区猫群的小伙伴~\n非常欢迎新朋友加入设计开发哇~！</text>
+    <text>程序开发：rainbow\n信息录入：铮铮\n以及各校区猫群的小伙伴~\n非常欢迎新朋友加入设计开发哇~！</text>
   </view>
 </view>
 
 <view class='block'>
   <view class='title'>开源代码</view>
   <view class='desc'>
-    <text selectable='true'>本小程序基于开源项目改造，开源链接~\nhttps://github.com/DD789-001/cat-henu</text>
+    <text selectable='true'>本小程序基于开源项目中大猫谱改造，开源链接~\nhttps://github.com/DD789-001/cat-henu</text>
     <button class="primary" bindtap='copyOpenSourceLink'>点击复制到剪切板</button>
   </view>
 </view>
@@ -19,6 +19,18 @@
 <view class='block'>
   <view class='title'>更新日志</view>
   <view class='desc'>
+    <view class='sub-title hl'>v2.0.0</view>
+    <view class='log-list'>
+      <view class='log-item'>全新界面：换上河大校徽的蓝绿配色，更好看也更好用</view>
+      <view class='log-item'>打开更快：优化了图片加载，翻看猫谱更流畅</view>
+      <view class='log-item'>一键分享：可以把猫谱分享给好友和朋友圈了</view>
+      <view class='log-item'>填写更省心：资料支持存草稿，生日不知道可以选「未知」</view>
+      <view class='log-item'>管理更方便：校区和区域可以自由增删、调整顺序</view>
+      <view class='log-item'>新增入口：可直接上传照片、修改头像和昵称</view>
+      <view class='log-item'>修复了一批问题，使用更稳定</view>
+      <view class='log-date'>更新时间：2026/09/19</view>
+    </view>
+
     <view class='sub-title hl'>v1.6.4</view>
     <text class='sub-detail'>- 反馈系统改进\n - 其他UI改进和接口升级\n - 更新时间：2021/11/24</text>
 

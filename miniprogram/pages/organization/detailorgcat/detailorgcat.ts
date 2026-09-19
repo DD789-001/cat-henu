@@ -50,9 +50,16 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    const pagesStack = getCurrentPages();
-    const path = getCurrentPath(pagesStack);
-    return shareTo(`${this.data.cat.name} - 资料卡`, path);
+    return {
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
+      path: '/pages/genealogy/genealogy',
+    }
+  },
+    // 分享到朋友圈（微信限制：不能指定 path，落地页只能是当前页）
+  onShareTimeline: function () {
+    return {
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
+    }
   },
 
   loadCat() {

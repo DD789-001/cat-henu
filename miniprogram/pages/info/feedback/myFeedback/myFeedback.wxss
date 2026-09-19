@@ -1,3 +1,8 @@
 /* pages/info/feedback/myFeedback/myFeedback.wxss */
 
 @import '../../../manage/checkFeedbacks/checkFeedbacks.wxss';
+
+/* 页面底色：反馈卡片为白底，衬托浅蓝灰页面（选择器与 checkFeedbacks 一致，仅补底色） */
+page {
+  background-color: var(--color-bg);
+}

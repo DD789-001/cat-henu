@@ -2,9 +2,10 @@
 @import "../applyorg/applyorg.wxss";
 @import "../../manage/manageOrgs/manageOrgs.wxss";
 
+/* 猫猫列表行：头像 + 名称，名称下一条极淡分隔线 */
 .cat {
   /* width: 750rpx; */
-  padding: 0 30rpx;
+  padding: 0 var(--space-4);
   display: flex;
 }
 
@@ -12,15 +13,19 @@
   width: 100rpx;
   height: 100rpx;
   display: inline-block;
+  border-radius: var(--radius-md);
+  background-color: var(--color-gray-light);
 }
 
 .cat .name {
   height: 100rpx;
   width: 500rpx;
-  font-size: 38rpx;
+  font-size: var(--text-lg);
+  font-weight: 600;
   line-height: 100rpx;
-  margin: 0 30rpx;
+  margin: 0 var(--space-3);
   display: inline-block;
-  border-bottom: 1rpx solid lightgray;
+  border-bottom: 2rpx solid var(--color-gray-light);
   box-sizing: border-box;
+  color: var(--color-black-light);
 }

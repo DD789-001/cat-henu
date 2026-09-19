@@ -2,7 +2,7 @@
     <view class='userInfo'>
       <image src='../../../images/user.png'></image>
       <view>
-        <text>[请wx联系笃行添加照片] TAT\n</text>
+        <text>[请关注「河大金明TNR小队」小红书 / 抖音官号联系添加照片] TAT\n</text>
       </view>
     </view>
   <button class='long primary' bindtap="goBackIndex">返回首页</button>
@@ -22,7 +22,7 @@
   <block wx:else>
     <!-- <view>--已经授权--</view> -->
     <view class='userInfo'>
-      <image src='{{user.userInfo.avatarUrl}}'></image>
+      <image src="{{user.userInfo.avatarUrl || '../../../images/default.png'}}"></image>
       <view>
         <text>{{user.userInfo.nickName}}\n---正在为「<text style="font-weight:600;">{{cat.name}}</text>」添加照片</text>
       </view>

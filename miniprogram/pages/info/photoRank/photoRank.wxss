@@ -1,34 +1,40 @@
 /* miniprogram/pages/info/photoRank/photoRank.wxss */
+page {
+  background-color: var(--color-bg);
+}
+
+/* 顶部主色条：深蓝底，文字色必须用 --color-on-primary */
 #top-block {
   position: fixed;
   top: 0;
   width: 750rpx;
   height: 100rpx;
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
   z-index: -1;
 }
 
 .cen-block {
   width: 690rpx;
   height: auto;
-  padding: 40rpx 50rpx 30rpx 50rpx;
-  margin: 30rpx;
+  padding: var(--space-4) var(--space-5) var(--space-3) var(--space-5);
+  margin: var(--space-3) auto;
   box-sizing: border-box;
-  background-color: white;
-  border-radius: 20rpx;
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
 
   display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
-
-  box-shadow: 0rpx 0rpx 10rpx var(--color-gray);
 }
 
 /* 未授权的 */
 .unAuth .title {
-  font-size: 30rpx;
   width: 100%;
+  font-size: var(--text-md);
+  color: var(--color-black-min);
   text-align: center;
 }
 .unAuth .avatar-picker {
@@ -36,8 +42,9 @@
   height: 144rpx;
   padding: 0;
   border: 0;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 .unAuth .avatar-picker image {
   width: 144rpx;
@@ -46,18 +53,19 @@
 .unAuth .nickname-input {
   width: 100%;
   min-height: 80rpx;
-  margin: 10rpx;
-  padding: 0 24rpx;
+  margin: var(--space-2) 0;
+  padding: 0 var(--space-3);
   box-sizing: border-box;
-  border: 1rpx solid var(--color-gray-light);
-  border-radius: 10rpx;
-  font-size: 30rpx;
+  border: 2rpx solid var(--color-gray-light);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-md);
+  color: var(--color-black-light);
 }
 .my-info image,
 .avatar image.avatar {
   width: 150rpx;
   height: 150rpx;
-  border-radius: 150rpx;
+  border-radius: var(--radius-full);
   background-color: var(--color-white-dark);
 }
 
@@ -76,19 +84,22 @@
 
 /* 文字大小 */
 .text .title {
-  font-size: 24rpx;
+  font-size: var(--text-sm);
   color: var(--color-gray-max);
 }
 .text .number {
-  font-size: 50rpx;
-  font-weight: 650;
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 .text .number.active {
   color: var(--color-primary);
 }
 .text .name {
-  font-size: 35rpx;
-  font-weight: 500;
+  margin-top: var(--space-1);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 
 /* 一行排名 */
@@ -97,14 +108,16 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 10rpx 0;
+  padding: var(--space-2) 0;
 }
 .row + .row {
-  border-top: 1rpx solid var(--color-gray-light);
+  border-top: 2rpx solid var(--color-gray-light);
 }
 .row .rank {
-  font-size: 32rpx;
   width: 80rpx;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-gray-max);
   text-align: left;
 }
 .row .avatar {
@@ -127,13 +140,16 @@
   left: 10rpx;
 }
 .row .name {
-  font-size: 36rpx;
-  padding-left: 20rpx;
+  padding-left: var(--space-2);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 .row .photo_count {
-  font-size: 50rpx;
-  font-weight: 650;
   margin-left: auto;
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 .row .photo_count.active {
   color: var(--color-primary);
@@ -141,16 +157,45 @@
 
 /* 最后的小tip */
 .tip {
-  font-size: 28rpx;
-  margin: 30rpx;
+  margin: var(--space-3);
+  font-size: var(--text-sm);
   color: var(--color-gray-max);
 }
 
+/* 主色按钮：深蓝底必须配 --color-on-primary 白字 */
 button {
   width: 100%;
-  font-size: 30rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  margin: var(--space-2) 0;
+  padding: 0 var(--space-4);
+  box-sizing: border-box;
+  font-size: var(--text-md);
   background-color: var(--color-primary);
-  margin: 10rpx;
-  border: 1rpx solid var(--color-gray-max);
-  border-radius: 20rpx;
+  color: var(--color-on-primary);
+  border: none;
+  border-radius: var(--radius-md);
+}
+button::after {
+  border: none;
+}
+
+/* 已完善资料时的编辑入口提示 */
+.edit-hint {
+  font-size: var(--text-xs);
+  color: var(--color-gray-max);
+  margin-top: var(--space-1);
+}
+
+/* 点击头像/昵称的反馈 */
+.hover-dim {
+  opacity: 0.6;
+}
+
+/* 编辑模式下的取消 */
+.cancel-edit {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-gray-max);
+  text-align: center;
 }

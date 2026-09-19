@@ -1,13 +1,19 @@
 /* miniprogram/pages/manage/manageOrgs/manageOrgs.wxss */
 @import "../../organization/orglist/orglist.wxss";
 
+/* 覆盖 orglist 的灰底，统一用设计系统的页面底色 */
+page {
+  background-color: var(--color-bg);
+}
+
 .header {
   width: 100%;
   text-align: center;
 
-  font-size: 36rpx;
-  line-height: 36rpx;
+  font-size: var(--text-lg);
+  line-height: 1.4;
+  font-weight: 600;
 
-  margin: 20rpx 0;
-  color: var(--color-gray-max);
+  margin: var(--space-3) 0;
+  color: var(--color-black-light);
 }

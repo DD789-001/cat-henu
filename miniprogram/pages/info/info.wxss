@@ -1,31 +1,35 @@
 /* miniprogram/pages/info/info.wxss */
 page {
   width: 750rpx;
-  padding: 30rpx 30rpx;
+  padding: var(--space-3);
   box-sizing: border-box;
-  background-color: var(--color-gray-light);
+  background-color: var(--color-bg);
 }
 
+/* ---------------- 小程序信息 ---------------- */
 .mina-info {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
-  padding: 40rpx 0 15rpx 0;
+  padding: var(--space-4) 0 var(--space-2) 0;
 }
 
+/* ---------------- 2x2 功能入口网格 ---------------- */
 .buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
+/* 入口卡片图自带 330x182 的宽高比，用 calc 让行/列间距都等于 --space-3 */
 .buttons .button {
-  width: 330rpx;
+  width: calc((100% - var(--space-3)) / 2);
   height: 182rpx;
-  border-radius: 15rpx;
-  box-shadow: 0rpx 0rpx 10rpx var(--color-gray-light);
-  margin-top: 30rpx;
+  margin-top: var(--space-3);
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 /* 下面是旧的 */
@@ -33,77 +37,84 @@ page {
 .mina-info image {
   width: 150rpx;
   height: 150rpx;
-  border-radius: 20rpx;
-  box-shadow: 0 0 10rpx var(--color-gray);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .mina-info .title {
-  font-size: 33rpx;
-  font-weight: 500;
-  margin-top: 20rpx;
+  margin-top: var(--space-2);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 
 .mina-info .dev {
-  font-size: 23rpx;
+  margin-top: var(--space-1);
+  font-size: var(--text-sm);
   font-weight: 300;
-  margin-top: 5rpx;
+  color: var(--color-gray-max);
   text-align: center;
 }
 
+/* ---------------- 板块标题 ---------------- */
 .block-name {
-  font-size:30rpx;
-  font-weight: 400;
-  margin-top: 35rpx;
   width: 100%;
+  margin-top: var(--space-5);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
   text-align: center;
 }
 
+/* ---------------- 友情链接 ---------------- */
 .friend-link-box{
-  background-color: white;
-  margin: 10rpx 6rpx 10rpx 6rpx;
-  padding: 15rpx 15rpx;
-  box-shadow: 0rpx 0rpx 10rpx var(--color-gray-light);
-  border-radius: 15rpx;
   display: flex;
   flex-wrap: wrap;
-}
-
-
-.option-box {
-  background-color: white;
-  margin: 10rpx 6rpx 10rpx 6rpx;
-  padding: 5rpx;
-  box-shadow: 0rpx 0rpx 10rpx var(--color-gray-light);
-  border-radius: 15rpx;
+  justify-content: space-around;
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .friend-link {
-  margin: 28rpx 10rpx 20rpx 5rpx;
-  width: 148rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 148rpx;
+  margin: var(--space-2) 0;
 }
 
 .friend-link image {
   width: 100rpx;
   height: 100rpx;
-  border-radius: 50rpx;
-  margin-bottom: 15rpx;
+  margin-bottom: var(--space-2);
+  border-radius: var(--radius-full);
 }
 
 .friend-link-text {
   width: 100%;
-  font-size: 25rpx;
+  font-size: var(--text-sm);
+  color: var(--color-black-min);
   text-align: center;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
+/* ---------------- 管理后台列表 ---------------- */
+.option-box {
+  margin-top: var(--space-2);
+  padding: 0;
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
 .option {
-  padding: 20rpx 30rpx;
+  padding: var(--space-3) var(--space-4);
   position: relative;
   display: flex;
   align-items: center;
@@ -112,12 +123,11 @@ page {
 .option:before {
   content: " ";
   position: absolute;
-  left: 30rpx;
+  left: var(--space-4);
   top: 0;
-  right: 30rpx;
-  height: 1px;
-  border-top: 1rpx solid var(--color-gray-light);
-  color: var(--color-gray-light);
+  right: var(--space-4);
+  height: 0;
+  border-top: 2rpx solid var(--color-gray-light);
 }
 
 .option:first-child:before {
@@ -125,8 +135,9 @@ page {
 }
 
 .option-text {
-  font-size: 28rpx;
   flex: 1;
+  font-size: var(--text-md);
+  color: var(--color-black-min);
 }
 
 .right-arrow image {

@@ -1,143 +1,173 @@
+/* miniprogram/pages/genealogy/detailCat/detailCat.wxss */
+
 page {
   height: 100%;
   overflow: hidden;
-  background-color: var(--color-gray-light);
+  background-color: var(--color-bg);
 }
+
+/* ---------------- 顶部背景：下拉可见的主色块 ---------------- */
 #bg-yellow {
   width: 750rpx;
   height: 1000rpx;
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
   position: fixed;
   z-index: -1;
 }
+
 #bg-yellow.hide {
   background-color: transparent;
 }
+
 #container {
   width: 750rpx;
   height: 100%;
   overflow: hidden;
 }
+
+/* 半圆下方的底色块 */
 #bg-big-circle {
   width: 750rpx;
   height: 470rpx;
-  background-color: white;
+  background-color: var(--color-bg);
   position: absolute;
 }
+
+/* 主色半圆 */
 #big-circle {
   width: 1250rpx;
   height: 1250rpx;
   background-color: var(--color-primary);
-  border-radius: 1250rpx;
+  color: var(--color-on-primary);
+  border-radius: var(--radius-full);
   position: absolute;
   left: -250rpx;
   top: -850rpx;
 }
 
+/* ---------------- 顶部照片轮播 ---------------- */
 swiper {
   width: 750rpx;
   height: 470rpx;
-  margin-top: 20rpx;
+  margin-top: var(--space-3);
 }
 
 swiper-item image {
   width: 600rpx;
   height: 450rpx;
-
-  border-radius: 15rpx;
+  border-radius: var(--radius-md);
+  background-color: var(--color-gray-light);
+  box-shadow: var(--shadow-md);
 }
 
+/* ---------------- 图鉴信息卡 ---------------- */
 .info {
   width: 750rpx;
   box-sizing: border-box;
-  padding: 30rpx 60rpx 15rpx 60rpx;
+  /* 左右内边距由 64rpx 收窄到 32rpx：原值让内容区只剩 622rpx，
+     三列网格每列仅 187rpx，「金明校区南苑」这类 6 字值几乎撑满，显得拥挤 */
+  padding: var(--space-4) var(--space-4) var(--space-2) var(--space-4);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  background-color: white;
+  background-color: #ffffff;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: var(--shadow-sm);
 }
-
 
 /* 以下为信息部分 */
 .info .name {
-  height: 36rpx;
-  font-size: 40rpx;
-  line-height: 36rpx;
-
-  font-weight: 450;
-  letter-spacing: 4rpx;
-  margin-bottom: 30rpx;
-  margin-left: 8rpx;
+  /* 去掉固定 height 与 4rpx 字距：字距过大让名字显得松散 */
+  font-size: var(--text-lg);
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--color-black-light);
+  margin-bottom: var(--space-3);
   display: flex;
   align-items: center;
 }
 
 .info image.gender {
-  margin-left: 10rpx;
-  height: 34rpx;
-  width: 34rpx;
+  margin-left: var(--space-2);
+  height: 32rpx;
+  width: 32rpx;
 }
 
 .info .popularity {
   margin-left: auto;
   order: 2;
-  display: inline;
-  font-size: 22rpx;
-  letter-spacing: 1rpx;
-  color: var(--color-black-light);
+  display: flex;
+  align-items: center;
+  font-size: var(--text-xs);
+  color: var(--color-gray-max);
 }
+
 .popularity image {
   height: 20rpx;
   width: 39rpx;
+  margin-right: 4rpx;
 }
 
+/* 状态标签统一为胶囊；左对齐，右侧操作按钮靠 auto margin 顶到行尾 */
 .tags {
   display: flex;
   align-items: center;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .tags .tag {
-  font-size: 20rpx;
-  height: 40rpx;
+  font-size: var(--text-xs);
+  height: 44rpx;
+  line-height: 44rpx;
   box-sizing: border-box;
-  border-radius: 20rpx;
+  border-radius: var(--radius-full);
   background-color: var(--color-primary);
-  padding: 6rpx 15rpx 8rpx 15rpx;
-  margin-right: 20rpx;
+  color: var(--color-on-primary);
+  padding: 0 var(--space-2);
+  margin-right: var(--space-2);
 }
-
 
 .tags .to_star {
   background-color: var(--color-gray-light);
+  color: var(--color-gray-max);
 }
 
 .tags .mpcode {
-  height: 40rpx;
-  margin-left: 20rpx;
+  height: 44rpx;
+  margin-left: var(--space-2);
+  display: flex;
+  align-items: center;
 }
+
 .mpcode image {
   height: 40rpx;
   width: 40rpx;
 }
 
+/* 次要操作：白底 + 主色描边的胶囊按钮（尺寸与左侧状态标签保持一致） */
 .fb-button {
-  font-size: 20rpx;
-  height: 40rpx;
+  font-size: var(--text-xs);
+  height: 44rpx;
   line-height: 40rpx;
-  padding: 0 10rpx;
+  box-sizing: border-box;
+  padding: 0 var(--space-2);
   text-align: center;
   margin-left: auto;
-  color: var(--color-black-light);
-  /* background-color: var(--color-primary); */
-  border: 3rpx solid var(--color-primary);
-  border-radius: 5rpx;
+  color: var(--color-primary);
+  background-color: transparent;
+  border: 2rpx solid var(--color-primary);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .details {
-  width: 630rpx;
-  margin-top: 35rpx;
+  width: 100%;
+  margin-top: var(--space-4);
 
   display: flex;
   justify-content: space-between;
@@ -146,32 +176,43 @@ swiper-item image {
 
 .details .item {
   width: 30%;
-  padding-bottom: 30rpx;
+  /* 统一下边距节奏（32→24rpx），避免空值项把页面撑得松散 */
+  padding-bottom: var(--space-3);
 }
 
 .details .item .label-block {
-  width: 8rpx;
-  height: 20rpx;
+  /* 装饰条收细，减少每行重复出现的视觉噪音 */
+  width: 6rpx;
+  height: 18rpx;
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border-radius: 3rpx;
   display: inline-block;
+  margin-right: var(--space-1);
 }
 
 .details .item .label {
   width: 100%;
-  font-size: 22rpx;
-  padding-bottom: 10rpx;
+  font-size: var(--text-xs);
+  color: var(--color-gray-max);
+  padding-bottom: var(--space-1);
 }
 
 .details .item .value {
   width: 100%;
-  font-size: 26rpx;
-  line-height: 40rpx;
-  padding-bottom: 5rpx;
-  letter-spacing: 2rpx;
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--color-black-min);
+  /* 去掉 letter-spacing：3 列窄格下字距会让长值更容易换行、显得散 */
 }
 
 .details .item.long {
   width: 100%;
+}
+
+/* 空值（显示为 -）用更浅的灰，避免一片横线与真实信息抢注意力 */
+.details .item .value.empty {
+  color: var(--color-gray-dark);
 }
 
 .feedback {
@@ -179,14 +220,16 @@ swiper-item image {
   flex-direction: row;
 }
 
+/* 相册排序按钮 */
 .sort-button {
-  font-size: 25rpx;
-  height: 55rpx;
+  font-size: var(--text-sm);
+  height: 64rpx;
   box-sizing: border-box;
-  border-radius: 15rpx;
+  border-radius: var(--radius-full);
   background-color: var(--color-primary);
-  padding: 25rpx 20rpx;
-  margin-right: 40rpx;
+  color: var(--color-on-primary);
+  padding: 0 var(--space-2);
+  margin-right: var(--space-4);
 
   display: flex;
   align-items: center;
@@ -196,7 +239,7 @@ swiper-item image {
 .sort-button .logo {
   height: 30rpx;
   width: 30rpx;
-  margin: 0 0 0 10rpx ;
+  margin: 0 0 0 var(--space-1);
 }
 
 .sort-button .picker {
@@ -204,44 +247,52 @@ swiper-item image {
   align-items: center;
 }
 
-/* 下面开始相册 */
+/* ---------------- 相册 ---------------- */
 .album-title {
   text-align: center;
-  padding: 20rpx;
-  font-size: 34rpx;
+  padding: var(--space-3);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 
 .album-block {
   width: 750rpx;
   display: flex;
   flex-wrap: wrap;
-  background-color: var(--color-gray-light);
+  background-color: var(--color-bg);
 }
 
 .album-block .header {
   width: 100%;
-  padding: 30rpx 0 20rpx 35rpx;
+  padding: var(--space-4) 0 var(--space-3) var(--space-4);
 }
 
 .album-block .header image {
   width: 32rpx;
   height: 32rpx;
+  vertical-align: middle;
 }
 
 .album-block .header .time {
-  height: 35rpx;
-  font-size: 35rpx;
-  line-height: 35rpx;
-  display: inline-block;
-  padding: 0 10rpx;
-}
-.album-block .header .age {
-  height: 28rpx;
-  font-size: 28rpx;
-  line-height: 28rpx;
-  display: inline-block;
+  height: var(--text-lg);
+  font-size: var(--text-lg);
+  line-height: var(--text-lg);
+  font-weight: 600;
   color: var(--color-black-light);
-  padding: 0 10rpx;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 var(--space-1);
+}
+
+.album-block .header .age {
+  height: var(--text-sm);
+  font-size: var(--text-sm);
+  line-height: var(--text-sm);
+  display: inline-block;
+  vertical-align: middle;
+  color: var(--color-gray-max);
+  padding: 0 var(--space-1);
 }
 
 .album-block .alb-image {
@@ -249,69 +300,76 @@ swiper-item image {
   height: 240rpx;
   box-sizing: border-box;
   margin: 6rpx 5rpx;
-  background-color: white;
+  border-radius: var(--radius-sm);
+  background-color: #ffffff;
 }
 
 .album .loading {
   width: 100%;
   text-align: center;
-  background-color: var(--color-gray-light);
-  color: var(--color-gray);
-  font-size: 28rpx;
-  padding: 5rpx 0;
+  background-color: var(--color-bg);
+  color: var(--color-gray-max);
+  font-size: var(--text-sm);
+  padding: var(--space-1) 0;
 }
 
 #add-photo-btn {
   width: 100rpx;
   height: 100rpx;
-  border-radius: 100rpx;
+  border-radius: var(--radius-full);
   position: fixed;
-  bottom: 50rpx;
-  right: 50rpx;
-  box-shadow: 5rpx 5rpx 20rpx var(--color-gray-dark);
+  bottom: var(--space-5);
+  right: var(--space-5);
+  box-shadow: var(--shadow-lg);
 }
 
-/* 下面开始悬浮标题 */
+/* ---------------- 悬浮吸顶标题 ---------------- */
 .big-header {
   width: 750rpx;
-  background-color: white;
+  background-color: #ffffff;
   display: flex;
   /* align-content: center; */
   align-items: center;
 
-  border:solid var(--color-gray-light);
-  border-width: 1rpx 0;
+  border-top: 2rpx solid var(--color-gray-light);
+  border-bottom: 2rpx solid var(--color-gray-light);
 }
+
 .big-header.fix {
   position: fixed;
   top: 0;
-  box-shadow: 0 5rpx 20rpx var(--color-gray);
+  box-shadow: var(--shadow-md);
 }
+
 .big-header image {
   width: 70rpx;
   height: 70rpx;
-  border-radius: 70rpx;
-  margin: 30rpx;
+  border-radius: var(--radius-full);
+  margin: var(--space-4);
 }
+
 .big-header .name-and-count {
   display: inline-block;
   flex-grow: 1;
 }
+
 .big-header .name-and-count .name {
-  height: 36rpx;
-  line-height: 36rpx;
-  font-size: 36rpx;
-  font-weight: 450;
-  margin: 30rpx 0 10rpx 0;
+  height: var(--text-lg);
+  line-height: var(--text-lg);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
+  margin: var(--space-4) 0 var(--space-1) 0;
   width: 380rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
 .big-header .name-and-count .count {
-  height: 28rpx;
-  line-height: 28rpx;
-  font-size: 28rpx;
-  color: var(--color-black-light);
-  margin-bottom: 30rpx;
+  height: var(--text-sm);
+  line-height: var(--text-sm);
+  font-size: var(--text-sm);
+  color: var(--color-gray-max);
+  margin-bottom: var(--space-4);
 }

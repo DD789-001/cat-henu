@@ -1,14 +1,35 @@
 /* miniprogram/pages/science/science.wxss */
 
+page {
+  background-color: var(--color-bg);
+  /* 顶部留出与导航栏的呼吸感 */
+  padding-top: var(--space-4);
+  /* 底部预留 tabBar 高度：先给固定值兜底，再用 env() 适配全面屏安全区 */
+  padding-bottom: 180rpx;
+  padding-bottom: calc(120rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
+}
+
 .card {
-  width: 692rpx;
-  height: 261rpx;
-  margin: 20rpx 29rpx;
+  /* 左右边距 32rpx（750-64=686rpx 宽）。素材为 692×261（比例 2.651），
+     686/2.651≈259rpx，属等比缩放，拉伸误差约 0.1% 肉眼不可见。
+     注意：wxml 里的 image 未设 mode（默认 scaleToFill），因此必须保持尺寸比例一致。 */
+  width: 686rpx;
+  height: 259rpx;
+  margin: 0 auto var(--space-4);
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.card:last-child {
+  margin-bottom: 0;
 }
 
 .card image {
-  width: 692rpx;
-  height: 261rpx;
+  display: block;
+  width: 100%;
+  height: 100%;
   background-color: var(--color-gray-light);
-  border-radius: 15rpx;
 }

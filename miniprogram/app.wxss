@@ -1,8 +1,13 @@
 /**app.wxss**/
 page {
   /* 定义一些颜色变量 */
-  --color-primary: #ffd101;
-  --color-primary-dark: #dfb600;
+  /* 主题色取自河南大学校徽：主色「河大蓝」#3C5CA8，辅助色「河大绿」#2E8B57 */
+  --color-primary: #3C5CA8;
+  --color-primary-dark: #2C4680;
+  --color-primary-light: #EDF1FA;
+  --color-accent: #2E8B57;
+  /* 主色背景上的文字色：深蓝底必须配白字，否则对比度不足 */
+  --color-on-primary: #FFFFFF;
 
   --color-white-dark: #fafafa;
 
@@ -15,6 +20,37 @@ page {
   --color-black-light: #222222;
 
   --color-black-transparent: rgba(0,0,0,0.5);
+
+  /* ============ 设计系统 ============ */
+  /* 页面底色：浅蓝灰，衬托白色卡片 */
+  --color-bg: #F4F6FB;
+
+  /* 间距阶梯 */
+  --space-1: 8rpx;
+  --space-2: 16rpx;
+  --space-3: 24rpx;
+  --space-4: 32rpx;
+  --space-5: 48rpx;
+  --space-6: 64rpx;
+
+  /* 圆角阶梯 */
+  --radius-sm: 8rpx;
+  --radius-md: 16rpx;
+  --radius-lg: 24rpx;
+  --radius-full: 999rpx;
+
+  /* 阴影：低透明度主题色 + 大模糊，替换旧的"偏移硬阴影" */
+  --shadow-sm: 0 2rpx 8rpx rgba(60, 92, 168, 0.06);
+  --shadow-md: 0 6rpx 24rpx rgba(60, 92, 168, 0.10);
+  --shadow-lg: 0 12rpx 40rpx rgba(60, 92, 168, 0.14);
+
+  /* 字号阶梯 */
+  --text-xs: 22rpx;
+  --text-sm: 26rpx;
+  --text-md: 30rpx;
+  --text-lg: 34rpx;
+  --text-xl: 40rpx;
+  --text-2xl: 48rpx;
 }
 .container {
   display: flex;
@@ -35,6 +71,138 @@ page {
   margin: 600rpx 0 30rpx 0;
   text-align: center;
   font-size: 34rpx;
+}
+
+/* ==================== 通用 UI 组件 ==================== */
+/* 各页面共用，配合 page 上的 design token 使用 */
+
+/* 页面容器：浅蓝灰底 + 统一内边距 */
+.ui-page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: var(--space-3);
+  background-color: var(--color-bg);
+}
+
+/* 卡片 */
+.ui-card {
+  box-sizing: border-box;
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-3);
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.ui-card:last-child {
+  margin-bottom: 0;
+}
+
+/* 标题与文字层级 */
+.ui-title {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
+}
+.ui-text {
+  font-size: var(--text-md);
+  color: var(--color-black-min);
+}
+.ui-text-sub {
+  font-size: var(--text-sm);
+  color: var(--color-gray-max);
+}
+.ui-text-strong {
+  font-weight: 600;
+  color: var(--color-black-light);
+}
+
+/* 按钮（清掉小程序 button 的默认边框） */
+.ui-btn {
+  height: 88rpx;
+  line-height: 88rpx;
+  padding: 0 var(--space-4);
+  font-size: var(--text-md);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+}
+.ui-btn::after {
+  border: none;
+}
+.ui-btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+}
+.ui-btn-ghost {
+  background-color: #ffffff;
+  color: var(--color-primary);
+  border: 2rpx solid var(--color-primary);
+}
+.ui-btn-block {
+  width: 100%;
+}
+
+/* 标签 */
+.ui-tag {
+  display: inline-block;
+  padding: 4rpx 16rpx;
+  font-size: var(--text-xs);
+  border-radius: var(--radius-full);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+.ui-tag-accent {
+  background-color: rgba(46, 139, 87, 0.12);
+  color: var(--color-accent);
+}
+
+/* 列表单元格 */
+.ui-cell {
+  display: flex;
+  align-items: center;
+  min-height: 96rpx;
+  padding: var(--space-2) 0;
+  border-bottom: 2rpx solid var(--color-gray-light);
+}
+.ui-cell:last-child {
+  border-bottom: none;
+}
+.ui-cell-label {
+  flex: 0 0 160rpx;
+  font-size: var(--text-md);
+  color: var(--color-gray-max);
+}
+.ui-cell-value {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-md);
+  color: var(--color-black-light);
+}
+
+/* 分隔线 */
+.ui-divider {
+  height: 2rpx;
+  margin: var(--space-2) 0;
+  background-color: var(--color-gray-light);
+}
+
+/* 空状态 */
+.ui-empty {
+  padding: var(--space-6) var(--space-3);
+  text-align: center;
+  font-size: var(--text-sm);
+  color: var(--color-gray-max);
+}
+
+/* 圆角搜索框 */
+.ui-search {
+  display: flex;
+  align-items: center;
+  height: 72rpx;
+  padding: 0 var(--space-3);
+  background-color: var(--color-gray-light);
+  border-radius: var(--radius-full);
+  font-size: var(--text-sm);
+  color: var(--color-gray-max);
 }
 
 @import '/packages/weui/weui-wxss/dist/style/weui.wxss'

@@ -1,87 +1,108 @@
+/* miniprogram/pages/manage/replyFeedback/replyFeedback.wxss */
 page {
   width: 750rpx;
   padding: 50rpx 30rpx;
   box-sizing: border-box;
+  background-color: var(--color-bg);
 }
 
 .feedback-info {
   width: 100%;
-  padding: 0rpx 0rpx 30rpx 0;
+  padding: 0rpx 0rpx var(--space-3) 0;
   display: flex;
+  align-items: center;
 }
 
 .feedback-info image {
   height: 50rpx;
   width: 50rpx;
-  margin-right: 10rpx;
-  border-radius: 5rpx;
+  margin-right: var(--space-2);
+  border-radius: var(--radius-full);
 }
 
 .feedback-info text {
   height: 50rpx;
   line-height: 50rpx;
-  font-size: 35rpx;
+  font-size: var(--text-md);
+  color: var(--color-black-min);
 }
 
 input, picker, textarea {
   width: 670rpx;
-  border-bottom: 2rpx var(--color-primary) solid;
+  box-sizing: border-box;
+  border: 2rpx solid var(--color-gray-light);
+  border-radius: var(--radius-sm);
   background-color: var(--color-white-dark);
-  padding: 10rpx;
+  padding: var(--space-2);
   color: var(--color-black-light);
+  /* 小程序 input/picker 默认高度约 45rpx，扣除 border-box 的 padding 与 border 后
+     内容区不足以容纳文字，会导致 placeholder/输入内容底部被裁，故给足高度与行高 */
+  min-height: 72rpx;
+  line-height: 40rpx;
 }
 
 .replyColumn {
-  height: 10rem;
+  height: 320rpx;
 }
 
 button {
   width: 45%;
   display: inline-block;
-  font-size: 35rpx;
   box-sizing: border-box;
+  font-size: var(--text-md);
+  border-radius: var(--radius-md);
+}
+
+/* 清掉小程序 button 自带的那圈灰边框，避免和圆角打架 */
+button::after {
+  border: none;
 }
 
 button.submit {
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
   width: 100%;
   display: inline-block;
   box-sizing: border-box;
-  font-size: 35rpx;
+  font-size: var(--text-md);
   line-height: 40rpx;
   padding: 20rpx 30rpx;
-  border: 1rpx solid var(--color-gray-max);
-  border-radius: 10rpx;
-  margin-top: 20rpx;
+  border: none;
+  border-radius: var(--radius-md);
+  margin-top: var(--space-3);
 }
 
 
-.inputColumn {
-  font-size: 35rpx;
+/* wxml 实际用的是复数 inputColumns，原单数拼写令样式从未生效，两种都保留 */
+.inputColumn,
+.inputColumns {
+  font-size: var(--text-md);
   line-height: 40rpx;
 }
 
 .lengthTips {
-  font-size: 26rpx;
+  font-size: var(--text-sm);
   color: var(--color-gray-max);
   float: right;
 }
 
 .submitButton {
-  margin-top: 20rpx;
+  margin-top: var(--space-3);
 }
 
 .feedback-content {
-  font-size: 30rpx;
+  font-size: var(--text-md);
   font-weight: 400;
-  margin: 10rpx 0;
+  color: var(--color-black-min);
+  margin: var(--space-2) 0;
 }
 
 .label {
-  font-size: 30rpx;
+  font-size: var(--text-md);
   font-weight: 400;
 }
 
 .label.user {
+  font-size: var(--text-sm);
   color: var(--color-gray-max);
 }

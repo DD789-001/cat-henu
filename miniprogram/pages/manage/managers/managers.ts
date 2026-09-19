@@ -72,7 +72,16 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
+      path: '/pages/genealogy/genealogy',
+    }
+  },
+    // 分享到朋友圈（微信限制：不能指定 path，落地页只能是当前页）
+  onShareTimeline: function () {
+    return {
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
+    }
   },
   // 没有权限，返回上一页
   goBack() {
@@ -214,7 +223,15 @@ Page({
         console.log(res);
         if (res.result.ok) {
           wx.showToast({
-            title: '更新成功',
+            title: res.result.noChange ? '等级未变化' : '更新成功',
+            icon: res.result.noChange ? 'none' : 'success',
+          });
+        } else if (res.result.msg === 'updated: 0') {
+          // 兼容尚未重新部署的旧版云函数：写入值与现有值相同属于幂等成功，
+          // 数据库 stats.updated 返回 0，不应提示「更新失败」
+          wx.showToast({
+            title: '等级未变化',
+            icon: 'none',
           });
         } else {
           wx.showToast({

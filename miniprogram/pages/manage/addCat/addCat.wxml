@@ -1,65 +1,149 @@
+<!--miniprogram/pages/manage/addCat/addCat.wxml-->
 <block wx:if="{{auth}}">
-  <view class='label name'>名称：</view>
-  <input type='text' value='{{cat.name}}' bindinput="inputText" data-key='name'></input>
-  <view class='label nickname'>昵称：</view>
-  <input type='text' value='{{cat.nickname}}' bindinput="inputText" data-key='nickname'></input>
-  <view class='label area'>校区及区域：</view>
-  <picker mode="multiSelector" range='{{pickers.campus_area}}' value='{{pickers.campus_index}}' bindchange='bindAreaChange' bindcolumnchange='pickerAreaColumnChange'>{{(cat.campus + cat.area) || '请选择'}}</picker>
-  <!-- <view class='label area'>出没区域：</view>
-  <input type='text' value='{{cat.area}}' bindinput="inputText" data-key='area'></input> -->
 
-  <view class='label birthday'>出生信息：</view>
-  <!-- <input type='text' value='{{cat.birthday}}' bindinput="inputText" data-key='birthday'></input> -->
-  <picker mode='date' fields='month' bindchange='pickerDateChange' data-key='birthday'>{{cat.birthday == undefined? '请选择': cat.birthday}}</picker>
+  <!-- ==================== 基本信息 ==================== -->
+  <view class='section'>
+    <view class='section-title'>基本信息</view>
 
-  <view class='label colour'>花色：</view>
-  <picker mode="selector" range='{{pickers.colour}}' value='0' bindchange='pickerChange' data-key='colour'>{{cat.colour == undefined? '请选择': cat.colour}}</picker>
-  
-  <view class='label characteristics'>外貌特点：</view>
-  <input type='text' value='{{cat.characteristics}}' bindinput="inputText" data-key='characteristics'></input>
-
-  <view class='label tutorial'>撸猫指南：</view>
-  <textarea type='text' value='{{cat.tutorial}}' bindinput="inputText" data-key='tutorial'></textarea>
-
-  <view class='label habit'>性格：</view>
-  <input type='text' value='{{cat.habit}}' bindinput="inputText" data-key='habit'></input>
-
-  <view class='label father'>父亲：</view>
-  <input type='text' value='{{cat.father}}' bindinput="inputText" data-key='father'></input>
-  <view class='label mother'>母亲：</view>
-  <input type='text' value='{{cat.mother}}' bindinput="inputText" data-key='mother'></input>
-  <view class='label relation'>好友：</view>
-  <input type='text' value='{{cat.relation}}' bindinput="inputText" data-key='relation'></input>
-  <view class='label gender'>性别：</view>
-  <picker mode="selector" range='{{pickers.gender}}' value='0' bindchange='pickerChange' data-key='gender'>{{cat.gender == undefined? '请选择': cat.gender}}</picker>
-  <view class='label sterilized'>绝育：</view>
-  <picker mode="selector" range='{{pickers.sterilized}}' value='0' bindchange='pickerChange' data-key='sterilized'>{{cat.sterilized == undefined? '请选择': cat.sterilized}}</picker>
-  <view class='label adopt'>已领养：</view>
-  <picker mode="selector" range='{{pickers.adopt}}' value='0' bindchange='pickerChange' data-key='adopt'>{{cat.adopt == undefined? '请选择': cat.adopt}}</picker>
-  <view class='label to_star'>返回喵星：</view>
-  <picker mode="selector" range='{{pickers.to_star}}' value='0' bindchange='pickerChange' data-key='to_star'>{{cat.to_star == undefined? '请选择': cat.to_star}}</picker>
-  <view class='label popularity'>人气：{{cat.popularity}}</view>
-  <button class='primary' bindtap='upload'>确定提交</button>
-
-  <view class='label'>照片：</view>
-  <view class='card' wx:for='{{photo}}' wx:key="_id">
-    <view class='label light'>-- 第{{index + 1}}张  --</view>
-    <view class='label light'>上传者：{{item.userInfo.nickName || '匿名'}}</view>
-    <view class='label light'>拍摄日期：{{item.shooting_date || '暂无'}}</view>
-    <view class='label'>摄影师：</view>
-    <input type='text' value='{{item.photographer}}' placeholder='默认为上传者' bindinput='inputPher' data-pid='{{item._id}}'></input>
-    <button bindtap='updatePher' data-photo='{{item}}' data-index='{{index}}'>更新摄影师</button>
-    <view class='photo'>
-      <image mode='aspectFill' src='{{item.photo_compressed === undefined ? item.photo_id: item.photo_compressed}}'></image>
-      <view class='best' wx:if='{{item.best}}'>精选照片</view>
+    <view class='field'>
+      <view class='field-label'>名称</view>
+      <input class='field-control' type='text' value='{{cat.name}}' bindinput="inputText" data-key='name' placeholder='猫猫的名字'></input>
     </view>
-    
-    <button type='warn' bindtap='deletePhoto' data-photo='{{item}}'>删除第{{index + 1}}张</button>
-    <button bindtap='reverseBest' data-photo='{{item}}' data-index='{{index}}'>{{item.best? '取消': '设为'}}精选</button>
+
+    <view class='field'>
+      <view class='field-label'>昵称</view>
+      <input class='field-control' type='text' value='{{cat.nickname}}' bindinput="inputText" data-key='nickname' placeholder='选填'></input>
+    </view>
+
+    <view class='field'>
+      <view class='field-label'>校区及区域</view>
+      <picker class='field-control {{!cat.campus ? "is-empty" : ""}}' mode="multiSelector" range='{{pickers.campus_area}}' value='{{pickers.campus_index}}' bindchange='bindAreaChange' bindcolumnchange='pickerAreaColumnChange'>{{(cat.campus + cat.area) || '请选择'}}</picker>
+    </view>
+
+    <view class='field'>
+      <view class='field-label'>出生信息</view>
+      <view class='birthday-row'>
+        <picker class='birthday-picker' mode='date' fields='month' bindchange='pickerDateChange' data-key='birthday'>{{cat.birthday ? cat.birthday : '未知'}}</picker>
+        <button class='unknown-btn' bindtap='setBirthdayUnknown'>未知</button>
+      </view>
+    </view>
+
+    <view class='field'>
+      <view class='field-label'>花色</view>
+      <picker class='field-control {{cat.colour == undefined ? "is-empty" : ""}}' mode="selector" range='{{pickers.colour}}' value='0' bindchange='pickerChange' data-key='colour'>{{cat.colour == undefined? '请选择': cat.colour}}</picker>
+    </view>
   </view>
 
-  <view class='label bottom' hidden="{{!bottomShow}}">{{bottomText}}</view>
-<button bindtap='clickLoad'>加载更多猫图</button>
+  <!-- ==================== 特征描述 ==================== -->
+  <view class='section'>
+    <view class='section-title'>特征描述</view>
+
+    <view class='field'>
+      <view class='field-label'>外貌特点</view>
+      <input class='field-control' type='text' value='{{cat.characteristics}}' bindinput="inputText" data-key='characteristics' placeholder='选填'></input>
+    </view>
+
+    <view class='field'>
+      <view class='field-label'>性格</view>
+      <input class='field-control' type='text' value='{{cat.habit}}' bindinput="inputText" data-key='habit' placeholder='选填'></input>
+    </view>
+
+    <view class='field field-block'>
+      <view class='field-label'>撸猫指南</view>
+      <textarea class='field-textarea' type='text' value='{{cat.tutorial}}' bindinput="inputText" data-key='tutorial' placeholder='选填'></textarea>
+    </view>
+  </view>
+
+  <!-- ==================== 状态 ==================== -->
+  <view class='section'>
+    <view class='section-title'>状态</view>
+
+    <view class='field'>
+      <view class='field-label'>性别</view>
+      <picker class='field-control {{cat.gender == undefined ? "is-empty" : ""}}' mode="selector" range='{{pickers.gender}}' value='0' bindchange='pickerChange' data-key='gender'>{{cat.gender == undefined? '请选择': cat.gender}}</picker>
+    </view>
+
+    <view class='field'>
+      <view class='field-label'>绝育</view>
+      <picker class='field-control {{cat.sterilized == undefined ? "is-empty" : ""}}' mode="selector" range='{{pickers.sterilized}}' value='0' bindchange='pickerChange' data-key='sterilized'>{{cat.sterilized == undefined? '请选择': cat.sterilized}}</picker>
+    </view>
+
+    <view class='field'>
+      <view class='field-label'>已领养</view>
+      <picker class='field-control {{cat.adopt == undefined ? "is-empty" : ""}}' mode="selector" range='{{pickers.adopt}}' value='0' bindchange='pickerChange' data-key='adopt'>{{cat.adopt == undefined? '请选择': cat.adopt}}</picker>
+    </view>
+
+    <view class='field'>
+      <view class='field-label'>返回喵星</view>
+      <picker class='field-control {{cat.to_star == undefined ? "is-empty" : ""}}' mode="selector" range='{{pickers.to_star}}' value='0' bindchange='pickerChange' data-key='to_star'>{{cat.to_star == undefined? '请选择': cat.to_star}}</picker>
+    </view>
+
+    <view class='field'>
+      <view class='field-label'>人气</view>
+      <view class='field-static'>{{cat.popularity}}</view>
+    </view>
+  </view>
+
+  <!-- ==================== 亲缘关系 ==================== -->
+  <view class='section'>
+    <view class='section-title'>亲缘关系</view>
+
+    <view class='field'>
+      <view class='field-label'>父亲</view>
+      <input class='field-control' type='text' value='{{cat.father}}' bindinput="inputText" data-key='father' placeholder='选填'></input>
+    </view>
+
+    <view class='field'>
+      <view class='field-label'>母亲</view>
+      <input class='field-control' type='text' value='{{cat.mother}}' bindinput="inputText" data-key='mother' placeholder='选填'></input>
+    </view>
+
+    <view class='field'>
+      <view class='field-label'>好友</view>
+      <input class='field-control' type='text' value='{{cat.relation}}' bindinput="inputText" data-key='relation' placeholder='选填'></input>
+    </view>
+  </view>
+
+  <!-- ==================== 操作 ==================== -->
+  <view class='actions'>
+    <button class='btn-draft' bindtap='saveDraft'>存草稿</button>
+    <button class='btn-submit' bindtap='upload'>确定提交</button>
+  </view>
+
+  <!-- ==================== 照片 ==================== -->
+  <view class='section'>
+    <view class='section-title'>照片管理</view>
+
+    <!-- 新建猫尚无 cat_id：既加载不了照片，也无处可传，直接给出说明 -->
+    <view wx:if='{{isNewCat}}' class='photo-empty-tip'>请先点上方「确定提交」保存猫猫信息，保存后即可上传照片</view>
+
+    <block wx:else>
+      <button class='btn-upload-photo' bindtap='goAddPhoto'>＋ 上传新照片</button>
+
+      <view class='card' wx:for='{{photo}}' wx:key="_id">
+        <view class='photo-meta'>第 {{index + 1}} 张 · 上传者：{{item.userInfo.nickName || '匿名'}} · 拍摄：{{item.shooting_date || '暂无'}}</view>
+
+        <view class='field'>
+          <view class='field-label'>摄影师</view>
+          <input class='field-control' type='text' value='{{item.photographer}}' placeholder='默认为上传者' bindinput='inputPher' data-pid='{{item._id}}'></input>
+        </view>
+        <button class='btn-mini' bindtap='updatePher' data-photo='{{item}}' data-index='{{index}}'>更新摄影师</button>
+
+        <view class='photo'>
+          <image mode='aspectFill' src='{{item.photo_compressed === undefined ? item.photo_id: item.photo_compressed}}'></image>
+          <view class='best' wx:if='{{item.best}}'>精选照片</view>
+        </view>
+
+        <view class='card-actions'>
+          <button class='btn-mini warn' type='warn' bindtap='deletePhoto' data-photo='{{item}}'>删除本张</button>
+          <button class='btn-mini' bindtap='reverseBest' data-photo='{{item}}' data-index='{{index}}'>{{item.best? '取消': '设为'}}精选</button>
+        </view>
+      </view>
+
+      <view class='bottom-tip' hidden="{{!bottomShow}}">{{bottomText}}</view>
+      <button class='btn-loadmore' bindtap='clickLoad'>加载更多猫图</button>
+    </block>
+  </view>
 
 </block>
 <view wx:else class="unAuth">

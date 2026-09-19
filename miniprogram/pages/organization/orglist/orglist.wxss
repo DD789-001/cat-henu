@@ -3,19 +3,20 @@
 page {
   width: 750rpx;
   height: 100%;
-  background-color: var(--color-gray-light);
+  background-color: var(--color-bg);
   overflow: hidden;
 }
 
+/* 卡片：头像 + 叠加信息面板 + 进入按钮 */
 .card {
-  margin: 30rpx 50rpx;
-  font-size: 24rpx;
-  line-height: 24rpx;
+  /* 50rpx 保持 750 = 50 + 650(卡片宽) + 50，与下方 .apply 左右边缘对齐 */
+  margin: var(--space-3) 50rpx;
+  font-size: var(--text-sm);
+  line-height: 1.4;
   min-height: 260rpx;
   width: 650rpx;
 
   box-sizing: border-box;
-  /* background-color: green; */
 
   display: flex;
 }
@@ -23,8 +24,8 @@ page {
 .card .avatar {
   width: 200rpx;
   height: 200rpx;
-  border-radius: 20rpx;
-  box-shadow: 0 0 10rpx var(--color-gray);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
 
   z-index: 3;
 }
@@ -32,46 +33,49 @@ page {
 .card .info {
   width: 600rpx;
   max-height: 210rpx;
-  background-color: white;
-  box-shadow: 13rpx 13rpx 30rpx var(--color-gray);
-  margin: 30rpx 0 0 -130rpx;
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  margin: var(--space-4) 0 0 -130rpx;
   z-index: 2;
 
-  padding: 30rpx 30rpx 30rpx 170rpx;
+  padding: var(--space-4) var(--space-4) var(--space-4) 170rpx;
   box-sizing: border-box;
 
-  transition: max-height 0.7s;
+  /* 展开动画：时长由 0.7s 收到 0.3s 更跟手；缓动用 ease-out 自然减速 */
+  transition: max-height 0.3s ease-out;
   overflow: hidden;
 }
 
 .card .info .name {
-  font-size: 36rpx;
-  line-height: 36rpx;
+  font-size: var(--text-lg);
+  line-height: 1.3;
 
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 3rpx;
+  color: var(--color-black-light);
 }
 
 .card .info .slogan {
-  font-size: 26rpx;
-  line-height: 30rpx;
-  margin-top: 10rpx;
+  font-size: var(--text-sm);
+  line-height: 1.4;
+  margin-top: var(--space-1);
   color: var(--color-gray-max);
 }
 
 .card .info .cat-num {
-  margin-top: 10rpx;
+  margin-top: var(--space-1);
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
 .card .info .cat-num text {
-  font-size: 24rpx;
+  font-size: var(--text-sm);
   height: 30rpx;
   line-height: 30rpx;
-  margin-left: 10rpx;
-  color: var(--color-black-light);
+  margin-left: var(--space-1);
+  color: var(--color-black-min);
 }
 
 .card .info .cat-num image {
@@ -79,21 +83,23 @@ page {
   height: 40rpx;
 }
 
+/* 主色按钮块：深蓝底必须配 on-primary 白字 */
 .card .nav-btn {
-  font-size: 40rpx;
+  font-size: var(--text-xl);
   text-align: center;
   width: 100rpx;
   height: 100rpx;
   line-height: 86rpx;
-  border-radius: 20rpx;
+  border-radius: var(--radius-lg);
   background-color: var(--color-primary);
-  color: var(--color-gray-dark);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-sm);
   z-index: 3;
 
   margin-top: 125rpx;
   margin-left: -80rpx;
 
-  transition: margin-top 0.7s;
+  transition: margin-top 0.3s ease-out;
 }
 
 .card .nav-btn image {
@@ -102,27 +108,30 @@ page {
   margin: 20rpx;
 }
 
+/* 申请/串门入口：白底 + 淡虚线边框 */
 .apply {
   width: 650rpx;
   margin: 0 50rpx;
-  background-color: transparent;
-  border-radius: 30rpx;
-  border: 5rpx dashed lightgray;
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  border: 2rpx dashed var(--color-gray);
+  box-shadow: var(--shadow-sm);
 
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 
-  padding-bottom: 50rpx;
+  padding-bottom: var(--space-5);
   box-sizing: border-box;
 }
 
 .apply .icon {
   width: 100%;
-  color: var(--color-gray);
+  color: var(--color-primary);
 
   text-align: center;
   font-size: 100rpx;
+  line-height: 1.2;
   font-weight: bold;
 }
 
@@ -131,14 +140,17 @@ page {
   color: var(--color-gray-max);
 
   text-align: center;
-  font-size: 30rpx;
-  line-height: 30rpx;
+  font-size: var(--text-md);
+  line-height: 1.4;
   box-sizing: border-box;
 }
 
 /* 展开详情的卡片 */
 .card.detail .info {
-  max-height: 2000rpx;
+  /* 原值 2000rpx 远大于实际内容高度（约 500rpx），让 max-height 动画
+     大部分时间空转、观感是「猛地弹开后卡住」。收到 1000rpx 后动画更均匀，
+     同时仍留足余量容纳最长简介。 */
+  max-height: 1000rpx;
 }
 
 .card.detail .nav-btn {
@@ -147,13 +159,15 @@ page {
 
 .card .intro {
   width: 350rpx;
-  margin-top: 20rpx;
-  padding-top: 20rpx;
-  border-top: 1rpx solid lightgray;
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 2rpx solid var(--color-gray-light);
+  font-size: var(--text-sm);
   line-height: 150%;
+  color: var(--color-black-min);
 
   opacity: 0;
-  transition: opacity 0.7s;
+  transition: opacity 0.25s ease-out;
 
   box-sizing: border-box;
 }
@@ -166,11 +180,11 @@ page {
 .whatis, .modal-close {
   width: 100%;
   height: 60rpx;
-  padding: 10rpx;
+  padding: var(--space-1);
   text-align: center;
-  color: var(--color-gray-dark);
+  color: var(--color-gray-max);
 
-  font-size: 24rpx;
+  font-size: var(--text-sm);
   box-sizing: border-box;
 }
 
@@ -186,10 +200,10 @@ page {
 .dialog {
   width: 670rpx;
   margin: 300rpx 40rpx;
-  background-color: white;
-  border-radius: 10rpx;
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
 
-  box-shadow: 0 0 10rpx var(--color-gray);
+  box-shadow: var(--shadow-md);
   opacity: 1;
 }
 
@@ -198,9 +212,10 @@ page {
   margin-left: auto;
   white-space:pre-wrap;
 
-  padding: 10rpx;
-  font-size: 22rpx;
+  padding: var(--space-2);
+  font-size: var(--text-sm);
+  line-height: 1.7;
 
-  color: var(--color-black-light);
+  color: var(--color-black-min);
   display: inline-block;
 }

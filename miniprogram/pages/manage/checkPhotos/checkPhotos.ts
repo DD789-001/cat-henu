@@ -1,6 +1,6 @@
 // 审核照片
 import { isManager } from '../../../utils'
-import { requestNotice, notifyVerifyPhotoTplId, sendVerifyNotice} from '../../../msg'
+import { requestNotice, notifyVerifyTplId, sendVerifyNotice} from '../../../msg'
 
 // 准备发送通知的列表，姓名：审核详情
 var notice_list = {};
@@ -89,7 +89,16 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
+      path: '/pages/genealogy/genealogy',
+    }
+  },
+    // 分享到朋友圈（微信限制：不能指定 path，落地页只能是当前页）
+  onShareTimeline: function () {
+    return {
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
+    }
   },
   // 没有权限，返回上一页
   goBack() {
@@ -158,13 +167,13 @@ Page({
         success: res => {
           console.log("subscribeSet:", res);
           if ('subscriptionsSetting' in res) {
-            if (!(notifyVerifyPhotoTplId in res['subscriptionsSetting'])) {
+            if (!(notifyVerifyTplId in res['subscriptionsSetting'])) {
               // 第一次申请或只点了取消，未永久拒绝也未允许
               requestNotice('notifyVerify');
               // console.log("firstRequest");
-            } else if (res.subscriptionsSetting[notifyVerifyPhotoTplId] === 'reject') {
+            } else if (res.subscriptionsSetting[notifyVerifyTplId] === 'reject') {
               // console.log("已拒绝");// 不再请求/重复弹出toast
-            } else if (res.subscriptionsSetting[notifyVerifyPhotoTplId] === 'accept') {
+            } else if (res.subscriptionsSetting[notifyVerifyTplId] === 'accept') {
               console.log('重新请求下个一次性订阅');
               requestNotice('notifyVerify');
             }

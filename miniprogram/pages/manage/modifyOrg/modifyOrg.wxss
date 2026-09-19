@@ -1,2 +1,7 @@
 /* miniprogram/pages/manage/modifyOrg/modifyOrg.wxss */
 @import "../../organization/applyorg/applyorg.wxss";
+
+/* applyorg 的 page 没有设底色，这里补上设计系统的页面底色 */
+page {
+  background-color: var(--color-bg);
+}

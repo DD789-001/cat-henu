@@ -52,7 +52,7 @@
   <block wx:for='{{cats}}' wx:key="_id">
     <view class='card' bindtap='clickCatCard' bindlongpress='bindManageCat' data-cat_id='{{item._id}}'>
       <view class='image {{item.to_star? "to_star": ""}}'>
-        <image mode='aspectFill' src='{{item.photos[0]}}'></image>
+        <image mode='aspectFill' src='{{item.photos[0]}}' lazy-load='true'></image>
         <!-- <view class='image-title' wx:if='{{!item.photo_count || item.photo_count === 0}}'>暂无照片...</view> -->
         <!-- <view class='image-title' wx:else>{{item.photo.photo_id? ('Photo by ' + (item.photo.photographer ||(item.photo.userInfo? item.photo.userInfo.nickName: '匿名猫友'))): '加载照片ing'}}</view> -->
       </view>

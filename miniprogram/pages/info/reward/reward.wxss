@@ -1,12 +1,17 @@
 /* miniprogram/pages/info/reward/reward.wxss */
+page {
+  background-color: var(--color-bg);
+}
 
+/* ---------------- 卡片 ---------------- */
 .block {
   width: 690rpx;
-  margin: 50rpx 30rpx 0 30rpx;
-  padding: 50rpx 30rpx 25rpx 30rpx;
+  margin: var(--space-5) auto 0;
+  padding: var(--space-5) var(--space-3) var(--space-3);
   box-sizing: border-box;
-  border-radius: 10rpx;
-  box-shadow: 0 0 10rpx var(--color-gray-max);
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
   position: relative;
   display: flex;
   justify-content: center;
@@ -14,13 +19,16 @@
   flex-wrap: wrap;
 }
 
+/* 主色标签：深蓝底配 --color-on-primary 白字 */
 .block .title {
-  font-size: 28rpx;
-  font-weight: 500;
+  font-size: var(--text-sm);
+  font-weight: 600;
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
   display: inline-block;
-  padding: 10rpx;
-  box-shadow: 0 0 10rpx var(--color-gray-max);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
   position: absolute;
   top: -20rpx;
   left: -15rpx;
@@ -28,16 +36,32 @@
 
 .block .desc {
   width: 100%;
-  font-size: 30rpx;
-  color: var(--color-black-light);
-  line-height: 50rpx;
-  margin-bottom: 10rpx;
+  font-size: var(--text-md);
+  color: var(--color-black-min);
+  line-height: 1.7;
+  margin-bottom: var(--space-2);
 }
 
 .block .hl {
   font-weight: 600;
-  /* background-color: lightgoldenrodyellow; */
+  color: var(--color-primary);
   text-align: center;
+}
+
+/* 打赏记录/更新日志里的小标题与明细 */
+.block .sub-title {
+  margin-top: var(--space-2);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.block .sub-detail {
+  display: block;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-gray-max);
 }
 
 .block .buttons {
@@ -45,22 +69,31 @@
   display: flex;
 }
 
+/* 幽灵按钮为次、主色实心为主 */
 button {
-  font-size: 30rpx;
-  line-height: 40rpx;
-  margin: 10rpx;
-  padding: 16rpx 30rpx;
-  border: 1rpx solid var(--color-gray-max);
-  border-radius: 25rpx;
+  font-size: var(--text-md);
+  line-height: 88rpx;
+  height: 88rpx;
+  box-sizing: border-box;
+  margin: var(--space-1);
+  padding: 0 var(--space-4);
+  color: var(--color-primary);
+  background-color: #ffffff;
+  border: 2rpx solid var(--color-primary);
+  border-radius: var(--radius-full);
+}
+button::after {
+  border: none;
 }
 
 button.primary {
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 /* 最后的小tip */
 .tip {
-  font-size: 28rpx;
-  margin: 15rpx 40rpx;
+  font-size: var(--text-sm);
+  margin: var(--space-2) var(--space-5);
   color: var(--color-gray-max);
 }

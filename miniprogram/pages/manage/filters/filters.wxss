@@ -2,6 +2,7 @@ page {
   width: 750rpx;
   padding: 30rpx 30rpx 150rpx 30rpx;
   box-sizing: border-box;
+  background-color: var(--color-bg);
 }
 
 .mainF-block {
@@ -17,7 +18,7 @@ page {
 button {
   width: 45%;
   display: inline-block;
-  font-size: 30rpx;
+  font-size: var(--text-md);
   box-sizing: border-box;
 }
 
@@ -37,6 +38,7 @@ button + button {
 
 button.primary {
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 button.long {
@@ -55,15 +57,23 @@ button.short {
 
 .category {
   width: 100%;
-  margin-top: 30rpx;
-  border-bottom: 4rpx var(--color-gray-dark) solid;
-  padding: 10rpx;
-  color: var(--color-gray-max);
+  margin-top: var(--space-3);
+  padding: 10rpx 0 10rpx var(--space-2);
+  border-bottom: 2rpx solid var(--color-gray-light);
+  border-left: 8rpx solid var(--color-primary);
+  color: var(--color-black-light);
   display: flex;
-  align-content: space-around;
-  justify-content: left;
-  align-items: left;
-  font-size: 40rpx;
+  align-items: center;
+  font-size: var(--text-xl);
+}
+
+/* 校区名：占据按钮之外的剩余空间，过长时省略 */
+.category-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .sub-option {
@@ -83,6 +93,85 @@ button.short {
   display: inline-block;
 }
 
+/* 校区下暂无区域时的占位提示 */
+.empty-tip {
+  width: 100%;
+  padding: 24rpx 10rpx;
+  color: var(--color-gray);
+  font-size: var(--text-sm);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.main-add-form {
+  margin-top: 20rpx;
+}
+
+.main-add-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.location-input {
+  flex: 1;
+  min-width: 0;
+  box-sizing: border-box;
+  border-bottom: 2rpx var(--color-primary) solid;
+  background-color: var(--color-white-dark);
+  padding: 10rpx;
+  height: 70rpx;
+  line-height: 50rpx;
+}
+
+.campus-picker {
+  flex: 0 0 220rpx;
+  width: 220rpx;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border-bottom: 2rpx var(--color-primary) solid;
+  background-color: var(--color-white-dark);
+  padding: 10rpx;
+  height: 70rpx;
+  line-height: 50rpx;
+}
+
+.campus-picker + .location-input,
+.location-input + .location-input {
+  margin-left: 16rpx;
+}
+
+.main-add-row .submit {
+  flex: 0 0 150rpx;
+  width: 150rpx;
+  min-width: 150rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  margin: 0 0 0 20rpx;
+  white-space: nowrap;
+}
+
+/* 新增表单里的取消按钮（需覆盖 button + button 的默认间距） */
+.main-add-row .cancel {
+  flex: 0 0 120rpx;
+  width: 120rpx;
+  min-width: 120rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  margin: 0 0 0 16rpx;
+  padding: 0;
+  font-size: 28rpx;
+  white-space: nowrap;
+  background-color: var(--color-white-dark);
+  color: var(--color-gray-max);
+  border: 2rpx var(--color-gray) solid;
+}
+
 .submit {
   margin-top: 10rpx;
   margin-left: 30rpx;
@@ -93,9 +182,24 @@ input.content {
   background-color: var(--color-white-dark);
 }
 
+/* 每个校区下的「新增区域」入口 */
+button.add-area {
+  margin: 16rpx 0 0 0;
+  width: 100%;
+  font-size: 28rpx;
+  background-color: var(--color-white-dark);
+  color: var(--color-gray-max);
+  border: 2rpx var(--color-gray) dashed;
+}
+
+.area-add-form {
+  margin-top: 16rpx;
+}
+
 button.bottom {
   width: 100%;
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 .bottom-bar {

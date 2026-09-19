@@ -27,5 +27,11 @@ exports.main = async (event, context) => {
   });
   const updated = result.stats.updated;
 
-  return { ok: (updated === 1), msg: 'updated: '+updated, result: result };
+  // stats.updated === 0 表示写入值与现有值相同（doc 不存在时 update 会直接抛异常），
+  // 属于幂等成功。原实现把它判为失败，导致管理员将某人设为「它已有的等级」时误报
+  // 「更新失败 updated: 0」。
+  if (updated === 0) {
+    return { ok: true, noChange: true, msg: '等级未变化', result: result };
+  }
+  return { ok: true, msg: '更新成功', result: result };
 }

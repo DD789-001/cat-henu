@@ -1,32 +1,82 @@
+<!--miniprogram/pages/manage/filters/filters.wxml-->
 <block wx:if="{{auth}}">
-  <view class='mainF-block' wx:for='{{filters}}' wx:for-item='mainF' wx:for-index="filters_sub" wx:key='name'>
-    <view class="title">{{mainF.name}}选项</view>
-    <form wx:if="{{mainF.key == 'area' && mainF.adding}}" class='main-add-form' data-filterssub='{{filters_sub}}' bindsubmit="addCampusConfirm">
-      <input class='content' name='name' placeholder='请输入校区名称'></input>
-      <button class='submit' form-type='submit'>确定</button>
+
+  <!-- ===================== 校区选项 ===================== -->
+  <view class='mainF-block'>
+    <view class="title">校区选项</view>
+
+    <!-- 新增校区 -->
+    <form wx:if="{{addingCampus}}" class='main-add-form' bindsubmit="confirmAddCampus">
+      <view class='main-add-row'>
+        <input class='location-input' name='name' placeholder='校区名称' focus='{{addingCampus}}'></input>
+        <button class='submit' form-type='submit'>确定</button>
+        <button class='cancel' bindtap='toggleAddCampus'>取消</button>
+      </view>
     </form>
-    <button wx:if="{{mainF.key == 'area' && !mainF.adding}}" class='long' bindtap='addCampusInput' data-filterssub='{{filters_sub}}'>加校区选项</button>
-    <view class='container'>
-      <view class='category-box' wx:for="{{mainF.category}}" wx:for-item="ctg" wx:for-index='cateindex' wx:key='name'>
-        <view class="category">{{ctg.name}}</view>
-        <view class='sub-option' wx:for="{{ctg.items}}" wx:for-index='innerindex' wx:key='name'>
-          <view class='content'>{{item.name}}</view>
-          <button class='short' bindtap='moveOption' data-innerindex='{{innerindex}}' data-cateindex='{{cateindex}}' data-filterssub='{{filters_sub}}' data-direct='up'>上</button>
-          <button class='short' bindtap='moveOption' data-innerindex='{{innerindex}}' data-cateindex='{{cateindex}}' data-filterssub='{{filters_sub}}' data-direct='down'>下</button>
-          <button class='short' bindtap='deleteOption' data-innerindex='{{innerindex}}' data-cateindex='{{cateindex}}' data-filterssub='{{filters_sub}}'>删</button>
-        </view>
-        <form wx:if="{{ctg.adding}}" data-filterssub='{{filters_sub}}' data-cateindex='{{cateindex}}' bindsubmit="addOptionConfirm">
-          <input class='content' name='name'></input>
+    <button wx:else class='long' bindtap='toggleAddCampus'>＋ 新增校区</button>
+
+    <!-- 校区列表 -->
+    <view class='category-box' wx:for="{{campuses}}" wx:for-item="campus" wx:for-index='campusIndex' wx:key='name'>
+
+      <!-- 校区标题行 -->
+      <view class="category">
+        <view class='category-name'>{{campus.name}}</view>
+        <button class='short' bindtap='moveCampus' data-campusindex='{{campusIndex}}' data-direct='up'>上</button>
+        <button class='short' bindtap='moveCampus' data-campusindex='{{campusIndex}}' data-direct='down'>下</button>
+        <button class='short' bindtap='deleteCampus' data-campusindex='{{campusIndex}}'>删</button>
+      </view>
+
+      <!-- 该校区下的区域 -->
+      <view class='sub-option' wx:for="{{campus.items}}" wx:for-item='area' wx:for-index='areaIndex' wx:key='name'>
+        <view class='content'>{{area.name}}</view>
+        <button class='short' bindtap='moveArea' data-campusindex='{{campusIndex}}' data-areaindex='{{areaIndex}}' data-direct='up'>上</button>
+        <button class='short' bindtap='moveArea' data-campusindex='{{campusIndex}}' data-areaindex='{{areaIndex}}' data-direct='down'>下</button>
+        <button class='short' bindtap='deleteArea' data-campusindex='{{campusIndex}}' data-areaindex='{{areaIndex}}'>删</button>
+      </view>
+      <view class='empty-tip' wx:if="{{campus.items.length == 0}}">该校区下暂无区域</view>
+
+      <!-- 在该校区下新增区域 -->
+      <form wx:if="{{campus.addingArea}}" class='area-add-form' data-campusindex='{{campusIndex}}' bindsubmit="confirmAddArea">
+        <view class='main-add-row'>
+          <input class='location-input' name='name' placeholder='区域名称' focus='{{campus.addingArea}}'></input>
           <button class='submit' form-type='submit'>确定</button>
-        </form>
-        <button wx:if='{{!ctg.adding}}'class='long' bindtap='addOptionInput' data-filterssub='{{filters_sub}}' data-cateindex='{{cateindex}}'>加{{ctg.name}}选项</button>
+          <button class='cancel' bindtap='toggleAddArea' data-campusindex='{{campusIndex}}'>取消</button>
+        </view>
+      </form>
+      <button wx:else class='long add-area' bindtap='toggleAddArea' data-campusindex='{{campusIndex}}'>＋ 在「{{campus.name}}」下新增区域</button>
+
+    </view>
+  </view>
+
+  <!-- ===================== 花色选项 ===================== -->
+  <view class='mainF-block'>
+    <view class="title">花色选项</view>
+
+    <!-- 新增花色 -->
+    <form wx:if="{{addingColour}}" class='main-add-form' bindsubmit="confirmAddColour">
+      <view class='main-add-row'>
+        <input class='location-input' name='name' placeholder='花色名称' focus='{{addingColour}}'></input>
+        <button class='submit' form-type='submit'>确定</button>
+        <button class='cancel' bindtap='toggleAddColour'>取消</button>
+      </view>
+    </form>
+    <button wx:else class='long' bindtap='toggleAddColour'>＋ 新增花色</button>
+
+    <view class='category-box'>
+      <view class='sub-option' wx:for="{{colours}}" wx:for-item='colour' wx:for-index='colourIndex' wx:key='name'>
+        <view class='content'>{{colour.name}}</view>
+        <button class='short' bindtap='moveColour' data-index='{{colourIndex}}' data-direct='up'>上</button>
+        <button class='short' bindtap='moveColour' data-index='{{colourIndex}}' data-direct='down'>下</button>
+        <button class='short' bindtap='deleteColour' data-index='{{colourIndex}}'>删</button>
       </view>
     </view>
   </view>
+
   <view class='bottom-bar'>
     <button class='bottom' bindtap='uploadFilters'>确定上传</button>
   </view>
 </block>
+
 <view wx:else class='unAuth'>
   <text>{{tipText}}</text>
   <button bindtap='goBack' wx:if='{{tipBtn}}'>打扰了</button>

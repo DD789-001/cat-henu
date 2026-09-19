@@ -95,17 +95,17 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    var org = this.data.org;
     return {
-      title: `${org.name} - HENU 猫协`
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
+      path: '/pages/genealogy/genealogy',
     }
   },
 
   // 分享到朋友圈
+    // 分享到朋友圈（微信限制：不能指定 path，落地页只能是当前页）
   onShareTimeline: function () {
-    var org = this.data.org;
     return {
-      title: `${org.name} - HENU 猫协`
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
     }
   },
   

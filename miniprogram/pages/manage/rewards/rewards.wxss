@@ -1,11 +1,13 @@
+/* miniprogram/pages/manage/rewards/rewards.wxss */
 page {
   width: 750rpx;
   padding: 30rpx 30rpx 150rpx 30rpx;
   box-sizing: border-box;
+  background-color: var(--color-bg);
 }
 
 image {
-  border-radius: 10rpx;
+  border-radius: var(--radius-md);
   width: 670rpx;
   height: 670rpx;
   background-color: var(--color-gray-light);
@@ -14,12 +16,19 @@ image {
 button {
   width: 45%;
   display: inline-block;
-  font-size: 30rpx;
   box-sizing: border-box;
+  font-size: var(--text-md);
+  border-radius: var(--radius-md);
+}
+
+/* 清掉小程序 button 自带的那圈灰边框，避免和圆角打架 */
+button::after {
+  border: none;
 }
 
 button.primary {
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 button + button {
@@ -28,7 +37,7 @@ button + button {
 }
 
 button.long {
-  margin: 20rpx 0 0 0;
+  margin: var(--space-3) 0 0 0;
   width: 100%;
 }
 
@@ -40,39 +49,43 @@ button.long {
 button.bottom {
   width: 100%;
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 .reward-box {
   box-sizing: border-box;
-  padding: 30rpx 40rpx;
-  margin-bottom: 50rpx;
-  box-shadow: 0rpx 0rpx 30rpx var(--color-gray);
-  border-radius: 20rpx;
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
   background-color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-md);
 }
 
 .label {
-  font-size: 30rpx;
+  font-size: var(--text-md);
   font-weight: 400;
 }
 
 .label.record {
-  color: var(--color-gray-max);
+  color: var(--color-black-min);
 }
 
 .label.reward {
-  font-weight: bold;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 
 #top-box {
-  font-size: 30rpx;
-  font-weight: 300;
+  font-size: var(--text-sm);
+  font-weight: 400;
+  line-height: 1.6;
   color: var(--color-gray-max);
-  box-shadow: 0rpx 0rpx 30rpx var(--color-gray);
-  padding: 30rpx 40rpx;
-  margin-bottom: 50rpx;
-  border-radius: 20rpx;
   background-color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-3) var(--space-4);
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-md);
 }
 
 #container {
@@ -83,14 +96,20 @@ button.bottom {
 
 input, picker, textarea {
   width: 95%;
-  border-bottom: 2rpx var(--color-primary) solid;
+  box-sizing: border-box;
+  border: 2rpx solid var(--color-gray-light);
+  border-radius: var(--radius-sm);
   background-color: var(--color-white-dark);
-  padding: 10rpx;
+  padding: var(--space-2);
   color: var(--color-black-light);
+  /* 小程序 input/picker 默认高度约 45rpx，扣除 border-box 的 padding 与 border 后
+     内容区不足以容纳文字，会导致 placeholder/输入内容底部被裁，故给足高度与行高 */
+  min-height: 72rpx;
+  line-height: 40rpx;
 }
 
 .changecolumn {
-  height: 8rem;
+  height: 256rpx;
 }
 
 .bottom-bar {
@@ -98,7 +117,7 @@ input, picker, textarea {
   bottom: 0;
   left: 0;
   padding: 16rpx 40rpx env(safe-area-inset-bottom) 40rpx; /*底部iOS小黑边safe-area*/
-  border-top: 1rpx solid var(--color-gray);
+  border-top: 2rpx solid var(--color-gray-light);
   background-color: #FFFFFF;
   width: 100%;
   box-sizing: border-box;

@@ -8,6 +8,8 @@ Page({
    */
   data: {
     userInfo: null,
+    // 资料完善后设置区会被隐藏，点自己的头像/昵称可切回编辑模式
+    editMode: false,
     profileDraft: {
       avatarUrl: '',
       nickName: ''
@@ -41,7 +43,14 @@ Page({
    */
   onShareAppMessage: function () {
     return {
-      title: '拍照月榜 - HENU 猫协'
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
+      path: '/pages/genealogy/genealogy',
+    }
+  },
+    // 分享到朋友圈（微信限制：不能指定 path，落地页只能是当前页）
+  onShareTimeline: function () {
+    return {
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
     }
   },
 
@@ -53,6 +62,37 @@ Page({
       }
     } catch (error) {
       console.error('加载用户资料失败', error);
+    }
+  },
+
+  // 点自己的头像/昵称 -> 进入编辑模式，并把当前资料填入草稿
+  startEdit() {
+    const info = this.data.userInfo || {};
+    this.setData({
+      editMode: true,
+      profileDraft: {
+        avatarUrl: info.avatarUrl || '',
+        nickName: info.nickName || ''
+      }
+    });
+  },
+
+  cancelEdit() {
+    this.setData({ editMode: false });
+  },
+
+  // 头像加载失败（多为云存储文件已失效 / fileID 与当前环境不匹配）
+  // 回退到默认图并提示用户重设，避免长期显示破图或空白
+  onAvatarError() {
+    const info = this.data.userInfo;
+    if (info && info.avatarUrl) {
+      console.warn('头像加载失败，回退默认图:', info.avatarUrl);
+      this.setData({ 'userInfo.avatarUrl': '' });
+      wx.showToast({
+        title: '头像已失效，点击头像重新设置',
+        icon: 'none',
+        duration: 2500,
+      });
     }
   },
 
@@ -75,7 +115,7 @@ Page({
         this.data.profileDraft.nickName,
         this.data.profileDraft.avatarUrl
       );
-      this.setData({ userInfo: user.userInfo }, () => this.getMyRank());
+      this.setData({ userInfo: user.userInfo, editMode: false }, () => this.getMyRank());
       wx.showToast({title: '资料已保存'});
     } catch (error) {
       console.error('保存用户资料失败', error);

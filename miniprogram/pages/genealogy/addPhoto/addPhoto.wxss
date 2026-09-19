@@ -1,30 +1,39 @@
+/* miniprogram/pages/genealogy/addPhoto/addPhoto.wxss */
+
 page {
   width: 750rpx;
-  padding: 50rpx 30rpx 0 30rpx;
+  padding: var(--space-5) var(--space-4) 0 var(--space-4);
   box-sizing: border-box;
+  background-color: var(--color-bg);
 }
+
+/* ---------------- 用户信息 ---------------- */
 .userInfo {
   width: 100%;
-  padding: 0rpx 0rpx 10rpx 0;
+  padding: 0 0 var(--space-1) 0;
   display: flex;
+  align-items: center;
 }
 
 .userInfo image {
   height: 50rpx;
   width: 50rpx;
-  margin-right: 10rpx;
-  border-radius: 5rpx;
+  margin-right: var(--space-1);
+  border-radius: var(--radius-sm);
 }
 
 .userInfo text {
   height: 50rpx;
   line-height: 50rpx;
-  font-size: 35rpx;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 
+/* ---------------- 收录通知勾选框 ---------------- */
 .need-notice {
   width: 100%;
-  padding: 0rpx 0rpx 30rpx 0;
+  padding: 0 0 var(--space-4) 0;
   display: flex;
   align-items: center;
 }
@@ -32,7 +41,8 @@ page {
 .need-notice .my-checkbox {
   width: 40rpx;
   height: 40rpx;
-  border: 1rpx solid var(--color-gray-dark);
+  /* 勾选框需要可辨识的描边，故保留稍深的灰；其余边框统一用极淡的 --color-gray-light */
+  border: 2rpx solid var(--color-gray-dark);
   border-radius: 20%;
   padding: 5rpx;
   display: inline-block;
@@ -48,40 +58,47 @@ page {
 
 .need-notice .my-checkbox.checked .my-checkbox-core {
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 .need-notice text {
-  margin-left: 10rpx;
+  margin-left: var(--space-1);
   height: 100%;
   line-height: 100%;
-  font-size: 30rpx;
+  font-size: var(--text-md);
+  color: var(--color-black-min);
 }
 
+/* ---------------- 照片卡片 ---------------- */
 .card {
-  box-shadow: 0 0 10rpx var(--color-gray-dark);
-  padding: 30rpx 30rpx 15rpx 30rpx;
-  margin: 30rpx 0;
-  border-radius: 20rpx;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4) var(--space-4) var(--space-2) var(--space-4);
+  margin: var(--space-4) 0;
+  border-radius: var(--radius-md);
 }
 
 .selected-image {
-  border-radius: 3rpx;
+  border-radius: var(--radius-sm);
   width: 630rpx;
   height: 630rpx;
-  background-color: var(--color-gray-dark);
-  margin-bottom: 30rpx;
+  background-color: var(--color-gray-light);
+  margin-bottom: var(--space-4);
 }
 
+/* ---------------- 按钮 ---------------- */
 button {
   width: 300rpx;
   display: inline-block;
   box-sizing: border-box;
-  font-size: 30rpx;
+  font-size: var(--text-md);
   line-height: 40rpx;
-  padding: 20rpx 30rpx;
-  border: 1rpx solid var(--color-gray-max);
-  border-radius: 15rpx;
-  margin-top: 15rpx;
+  padding: var(--space-2) var(--space-4);
+  border: 2rpx solid var(--color-gray-light);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-2);
+  background-color: var(--color-white-dark);
+  color: var(--color-black-min);
 }
 
 button.long {
@@ -91,44 +108,55 @@ button.long {
 
 button.primary {
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border-color: var(--color-primary);
 }
 
 button + button {
-  margin-left: 30rpx;
+  margin-left: var(--space-4);
   /* float: right; */
 }
 
-
+/* ---------------- 表单 ---------------- */
 .label {
-  font-size: 30rpx;
+  font-size: var(--text-md);
   font-weight: 600;
-  margin-bottom: 5rpx;
-  margin-left: 10rpx;
+  color: var(--color-black-light);
+  margin-bottom: var(--space-1);
+  margin-left: var(--space-1);
 }
 
 picker, input {
-  border-bottom: 2rpx var(--color-primary) solid;
-  background-color: var(--color-white-dark);
-  padding: 15rpx;
-  margin-bottom: 20rpx;
+  border-bottom: 2rpx solid var(--color-gray-light);
+  background-color: var(--color-gray-light);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-size: var(--text-md);
   color: var(--color-black-light);
 }
 
 /* 统一设置相关 */
 .set-all {
-  box-shadow: 0 0 10rpx var(--color-gray-max);
-  padding: 30rpx 30rpx 20rpx 30rpx;
-  margin: 20rpx 0;
-  border-radius: 20rpx;
+  background-color: #ffffff;
+  box-shadow: var(--shadow-sm);
+  padding: var(--space-4) var(--space-4) var(--space-3) var(--space-4);
+  margin: var(--space-3) 0;
+  border-radius: var(--radius-md);
 }
 
 .set-all .title {
   width: 100%;
   text-align: center;
-  font-size: 36rpx;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
+  margin-bottom: var(--space-2);
 }
 
 .tip {
-  font-size: 24rpx;
-  margin-bottom: 5rpx;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-gray-max);
+  margin-bottom: var(--space-1);
 }

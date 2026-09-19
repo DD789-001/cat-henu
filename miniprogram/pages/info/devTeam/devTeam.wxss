@@ -1,2 +1,38 @@
 /* miniprogram/pages/info/devTeam/devTeam.wxss */
 @import '../reward/reward.wxss';
+/* ---------------- 更新日志（v2.0.0 起改用分条排版）----------------
+   历史版本仍用 .sub-detail 的整体文本写法；新版本用 .log-list + .log-item，
+   每条独立成行，可以单独控制间距，长文案也不会挤成一片。 */
+.log-list {
+  margin-top: var(--space-2);
+}
+
+.log-item {
+  position: relative;
+  padding-left: var(--space-3);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-gray-max);
+}
+
+/* 主色小圆点替代 "-" 前缀，视觉更轻 */
+.log-item::before {
+  content: '';
+  position: absolute;
+  left: 2rpx;
+  top: 16rpx;
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+}
+
+/* 更新时间单独一行，用细线与正文隔开 */
+.log-date {
+  margin-top: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 2rpx solid var(--color-gray-light);
+  font-size: var(--text-xs);
+  color: var(--color-gray-dark);
+}

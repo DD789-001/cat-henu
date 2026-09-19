@@ -1,79 +1,304 @@
 page {
   width: 750rpx;
-  padding: 30rpx 30rpx;
+  box-sizing: border-box;
+  padding: 24rpx 24rpx 60rpx 24rpx;
+  /* 底部额外避让全面屏 Home Indicator，避免最后一行/按钮被遮挡 */
+  padding-bottom: calc(60rpx + env(safe-area-inset-bottom));
+  background-color: var(--color-bg);
+}
+
+/* ---------------- 卡片分区 ---------------- */
+.section {
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 8rpx 24rpx 16rpx 24rpx;
+  margin-bottom: var(--space-3);
+  box-shadow: var(--shadow-sm);
+}
+
+.section-title {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-black-light);
+  padding: 20rpx 0 14rpx 0;
+  border-bottom: 2rpx solid var(--color-gray-light);
+}
+
+/* ---------------- 字段行 ---------------- */
+.field {
+  display: flex;
+  align-items: center;
+  min-height: 88rpx;
+  padding: 12rpx 0;
+  border-bottom: 2rpx solid var(--color-gray-light);
   box-sizing: border-box;
 }
 
-.label {
-  font-size: 30rpx;
-  font-weight: 600;
-  margin: 25rpx 0 5rpx 0;
+.field:last-child {
+  border-bottom: none;
 }
 
-.label.light {
-  font-weight: 400;
-  margin: 5rpx 0;
-}
-
-input, picker, textarea {
-  width: 670rpx;
-  border-bottom: 2rpx var(--color-primary) solid;
-  background-color: var(--color-white-dark);
-  padding: 15rpx;
+.field-label {
+  /* 用 min-width 而非固定 flex-basis：标签宽度随文字自适应，
+     避免「校区及区域」这类较长标签在字体渲染差异下被挤压或截断 */
+  flex: 0 0 auto;
+  min-width: 160rpx;
+  padding-right: var(--space-2);
+  box-sizing: border-box;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  /* 属性名用深色，与右侧灰色的输入提示字形成明确层次 */
   color: var(--color-black-light);
 }
 
+.field-control {
+  flex: 1;
+  min-width: 0;
+  width: auto; /* 覆盖全局 input/picker 的固定宽度 */
+  /* 小程序 input 默认高度仅约 45rpx，叠加 box-sizing:border-box 的上下 padding 后
+     内容区只剩约 21rpx，装不下 28rpx 文字，会导致 placeholder/输入内容底部被裁。
+     故显式给足高度与行高。 */
+  min-height: 72rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: var(--color-black-light);
+  background-color: var(--color-white-dark);
+  border-radius: 8rpx;
+  padding: 12rpx 16rpx;
+  box-sizing: border-box;
+}
+
+/* picker 未选择时提示文字用灰色，与 input 的 placeholder 观感保持一致 */
+.field-control.is-empty {
+  color: var(--color-gray-max);
+}
+
+.field-static {
+  flex: 1;
+  min-width: 0;
+  font-size: 28rpx;
+  color: var(--color-black-light);
+  padding: 12rpx 16rpx;
+}
+
+/* 撸猫指南：label 单独一行，textarea 占满整行 */
+.field-block {
+  display: block;
+}
+
+.field-textarea {
+  width: 100%;
+  min-height: 180rpx;
+  margin-top: 12rpx;
+  font-size: 28rpx;
+  color: var(--color-black-light);
+  background-color: var(--color-white-dark);
+  border-radius: 8rpx;
+  padding: 16rpx;
+  box-sizing: border-box;
+}
+
+/* ---------------- 出生信息 ---------------- */
+.birthday-row {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.birthday-picker {
+  flex: 1;
+  min-width: 0;
+  width: auto;
+  /* 与 .field-control 同理：给足高度与行高，避免文字底部被裁 */
+  min-height: 72rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: var(--color-black-light);
+  background-color: var(--color-white-dark);
+  border-radius: 8rpx;
+  padding: 12rpx 16rpx;
+  box-sizing: border-box;
+}
+
+.unknown-btn {
+  flex: 0 0 auto;
+  width: 110rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin: 0 0 0 16rpx;
+  padding: 0;
+  font-size: 24rpx;
+  background-color: #ffffff;
+  color: var(--color-gray-max);
+  border: 2rpx solid var(--color-gray);
+  border-radius: 8rpx;
+}
+
+/* ---------------- 底部操作 ---------------- */
+.actions {
+  display: flex;
+  align-items: center;
+  margin: 8rpx 0 24rpx 0;
+}
+
+.btn-draft, .btn-submit {
+  flex: 1;
+  width: auto;
+  margin: 0;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: var(--text-md);
+  border-radius: 12rpx;
+  box-sizing: border-box;
+}
+
+.btn-draft {
+  background-color: #ffffff;
+  color: var(--color-gray-max);
+  border: 2rpx solid var(--color-gray);
+}
+
+.btn-submit {
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 600;
+}
+
+.btn-draft + .btn-submit {
+  margin-left: 20rpx;
+}
+
+/* ---------------- 照片卡片 ---------------- */
 .card {
-  width: 690rpx;
-  box-shadow: 5rpx 5rpx 20rpx rgb(180, 180, 180);
-  border-radius: 10rpx;
-  padding: 10rpx;
-  margin: 30rpx 0;
-  box-sizing: border-box;
-}
-.card input {
-  width: 290rpx;
-  display: inline-block;
-}
-
-button {
-  width: 320rpx;
-  display: inline-block;
-  font-size: 35rpx;
+  background-color: var(--color-white-dark);
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin: 20rpx 0;
   box-sizing: border-box;
 }
 
-button + button, input + button {
-  margin-left: 30rpx;
-}
-
-checkbox {
-  height: 30rpx;
-  margin: 30rpx 30rpx 0 0;
+.photo-meta {
+  font-size: 24rpx;
+  color: var(--color-gray-max);
+  padding-bottom: 12rpx;
+  border-bottom: 2rpx solid var(--color-gray-light);
 }
 
 .photo {
-  width: 670rpx;
-  height: 670rpx;
+  width: 100%;
+  height: 600rpx;
   position: relative;
   margin: 20rpx 0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background-color: var(--color-gray-light);
 }
 
-image {
+.photo image {
   width: 100%;
   height: 100%;
-  position: absolute;
 }
 
 .photo .best {
   width: 100%;
-  height: 60rpx;
-  font-size: 40rpx;
+  height: 56rpx;
+  font-size: 32rpx;
   text-align: center;
-  line-height: 60rpx;
+  line-height: 56rpx;
   font-weight: 600;
   background-color: var(--color-primary);
-  opacity: .8;
+  color: var(--color-on-primary);
+  opacity: .85;
   position: absolute;
   bottom: 0;
+  left: 0;
+}
+
+.card-actions {
+  display: flex;
+  align-items: center;
+}
+
+.btn-mini {
+  flex: 1;
+  width: auto;
+  margin: 0;
+  height: 64rpx;
+  line-height: 64rpx;
+  font-size: 24rpx;
+  border-radius: 8rpx;
+  background-color: #ffffff;
+  color: var(--color-black-light);
+  border: 2rpx solid var(--color-gray);
+}
+
+.btn-mini.warn {
+  color: #e64340;
+  border-color: #f0c0be;
+}
+
+.btn-mini + .btn-mini {
+  margin-left: 16rpx;
+}
+
+.btn-loadmore {
+  width: 100%;
+  margin: 16rpx 0 0 0;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  border-radius: 12rpx;
+  background-color: #ffffff;
+  color: var(--color-gray-max);
+  border: 2rpx solid var(--color-gray);
+}
+
+.bottom-tip {
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--color-gray-max);
+  padding: 20rpx 0 0 0;
+}
+
+/* 新建猫时照片区的说明（此时无 cat_id，既不能加载也不能上传） */
+.photo-empty-tip {
+  margin-top: var(--space-2);
+  padding: var(--space-4) var(--space-3);
+  text-align: center;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-gray-max);
+  background-color: var(--color-gray-light);
+  border-radius: var(--radius-sm);
+}
+
+/* 上传新照片（跳转到 addPhoto 页面） */
+.btn-upload-photo {
+  width: 100%;
+  margin: var(--space-2) 0 0 0;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: var(--text-md);
+  border-radius: var(--radius-md);
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  border: none;
+}
+
+.btn-upload-photo::after {
+  border: none;
+}
+
+/* 照片卡片里"更新摄影师"按钮单独一行 */
+.card .btn-mini {
+  margin-top: 16rpx;
+}
+
+/* 未授权页的按钮保持系统默认观感 */
+.unAuth button {
+  width: 320rpx;
+  display: inline-block;
+  font-size: 32rpx;
+  box-sizing: border-box;
 }

@@ -1,17 +1,25 @@
 /* miniprogram/pages/manage/managers.wxss */
 page {
   width: 750rpx;
+  background-color: var(--color-bg);
 }
 
 button {
   width: 45%;
   display: inline-block;
-  font-size: 35rpx;
   box-sizing: border-box;
+  font-size: var(--text-md);
+  border-radius: var(--radius-md);
+}
+
+/* 清掉小程序 button 自带的那圈灰边框，避免和圆角打架 */
+button::after {
+  border: none;
 }
 
 button.primary {
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
 
 button + button {
@@ -20,27 +28,30 @@ button + button {
 }
 
 button.long {
-  margin: 20rpx 0 0 0;
+  margin: var(--space-3) 0 0 0;
   width: 100%;
 }
 
+/* 搜索 + 筛选面板：白底卡片 */
 .filter-block {
   align-items: center;
-  padding: 20rpx 35rpx;
-  margin: 20rpx 20rpx 30rpx 20rpx;
-  box-shadow: 0rpx 0rpx 10rpx var(--color-gray);
-  border-radius: 10rpx;
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-3);
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-md);
 }
 
 .search {
   display: flex;
+  align-items: center;
 }
 
 .line {
   width: 100%;
   height: 2rpx;
-  background: var(--color-gray);
-  margin: 15rpx 0rpx;
+  background: var(--color-gray-light);
+  margin: var(--space-2) 0rpx;
 }
 
 .filters checkbox .wx-checkbox-input {
@@ -57,15 +68,15 @@ button.long {
   height: 28rpx;
   line-height: 28rpx;
   text-align: center;
-  font-size: 22rpx;
-  color: #fff;
+  font-size: var(--text-xs);
+  color: var(--color-on-primary);
   background: transparent;
   transform: translate(-50%, -50%) scale(1);
   -webkit-transform: translate(-50%, -50%) scale(1);
 }
 
 .filters {
-  font-size: 30rpx;
+  font-size: var(--text-md);
   color: var(--color-gray-max);
   display: flex;
   flex-direction: row-reverse;
@@ -74,15 +85,16 @@ button.long {
 /* 下面开始用户管理的CSS */
 .user-box {
   box-sizing: border-box;
-  padding: 15rpx 10rpx;
-  margin: 20rpx 20rpx 50rpx 20rpx;
-  box-shadow: 0rpx 0rpx 10rpx var(--color-gray);
-  border-radius: 10rpx;
+  padding: var(--space-3);
+  margin: var(--space-3) var(--space-3) var(--space-5) var(--space-3);
+  background-color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-md);
 }
 
 .user-box .info {
-  border-bottom: 1px rgba(221, 221, 221, 0.377) solid;
-  margin-bottom: 20rpx;
+  border-bottom: 2rpx solid var(--color-gray-light);
+  margin-bottom: var(--space-3);
   display: flex;
   align-items: center;
 }
@@ -90,21 +102,24 @@ button.long {
 .user-box image.avatar {
   width: 80rpx;
   height: 80rpx;
+  border-radius: var(--radius-full);
 }
 
 .name-and-others {
   display: inline-block;
-  margin-left: 10rpx;
+  margin-left: var(--space-2);
 }
 
 .name-and-others .nickName,
 .unknow-info {
-  font-size: 32rpx;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 
 .name-and-others .gender,
 .name-and-others .area {
-  font-size: 30rpx;
+  font-size: var(--text-sm);
   color: var(--color-gray-max);
   display: inline-block;
 }
@@ -119,7 +134,8 @@ picker.manager-level {
   width: 400rpx;
   height: 60rpx;
   line-height: 60rpx;
-  border-bottom: 2rpx var(--color-primary) solid;
+  border: 2rpx solid var(--color-gray-light);
+  border-radius: var(--radius-sm);
   background-color: var(--color-white-dark);
   padding: 10rpx;
   color: var(--color-black-light);
@@ -128,14 +144,14 @@ picker.manager-level {
 
 button.manager-update {
   width: 200rpx;
-  font-size: 32rpx;
-  margin-left: 20rpx;
+  font-size: var(--text-md);
+  margin-left: var(--space-3);
   display: inline-block;
 }
 
 .index {
-  font-size: 28rpx;
-  color: var(--color-gray);
+  font-size: var(--text-sm);
+  color: var(--color-gray-max);
   margin-left: auto;
   display: inline-block;
 }

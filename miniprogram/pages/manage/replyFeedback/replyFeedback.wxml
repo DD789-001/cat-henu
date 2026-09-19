@@ -1,6 +1,6 @@
 <block wx:if="{{auth}}">
   <view class='feedback-info'>
-    <image src='{{feedback.userInfo.avatarUrl}}'></image>
+    <image src="{{feedback.userInfo.avatarUrl || '../../../images/default.png'}}"></image>
     <view>
       <text>正在回复[<text style="font-weight:600;">{{feedback.userInfo.nickName}}</text>]的反馈信息：\n</text>
     </view>

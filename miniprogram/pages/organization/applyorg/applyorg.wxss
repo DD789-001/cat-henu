@@ -1,27 +1,31 @@
 /* miniprogram/pages/organization/applyorg/applyorg.wxss */
 page {
   width: 750rpx;
-  padding: 50rpx 30rpx;
+  padding: var(--space-5) var(--space-4);
   box-sizing: border-box;
+  background-color: var(--color-bg);
 }
 
+/* 已授权/待授权提示条 */
 .userInfo {
   width: 100%;
-  padding: 0rpx 0rpx 30rpx 0;
+  padding: 0rpx 0rpx var(--space-3) 0;
   display: flex;
 }
 
 .userInfo image {
   height: 50rpx;
   width: 50rpx;
-  margin-right: 10rpx;
-  border-radius: 5rpx;
+  margin-right: var(--space-2);
+  border-radius: var(--radius-full);
 }
 
 .userInfo text {
   height: 50rpx;
   line-height: 50rpx;
-  font-size: 35rpx;
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 
 button.long {
@@ -31,59 +35,85 @@ button.long {
 
 button.primary {
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
 }
+
+/* 清掉小程序 button 自带的那圈灰边框，避免和圆角打架 */
+button::after {
+  border: none;
+}
+
+/* 表单控件：白底 + 极淡描边 + 圆角 */
 input, picker, textarea {
   width: 650rpx;
-  border-bottom: 2rpx var(--color-primary) solid;
-  background-color: var(--color-white-dark);
-  padding: 20rpx;
+  border: 2rpx solid var(--color-gray-light);
+  border-radius: var(--radius-md);
+  background-color: #ffffff;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-md);
+  line-height: 1.5;
   color: var(--color-black-light);
-  /* border-radius: 20rpx; */
-  margin-top: 8rpx;
+  margin-top: var(--space-1);
+  box-sizing: border-box;
+  /* input/picker 默认高度约 45rpx，扣掉 padding 与 border 后放不下 30rpx×1.5 的行高，
+     会导致文字/placeholder 底部被裁，故显式给足高度 */
+  min-height: 84rpx;
 }
 
 .inputTitle{
-  margin-left: 15rpx;
+  margin-left: var(--space-2);
+  font-size: var(--text-md);
+  line-height: 1.5;
+  font-weight: 600;
+  color: var(--color-black-light);
 }
 
 .feedbackColumn {
-  height: 12rem;
+  height: 384rpx;
 }
 
+/* 主色按钮：深蓝底必须配 on-primary 白字 */
 button {
   background-color: var(--color-primary);
+  color: var(--color-on-primary);
   width: 100%;
   display: inline-block;
   box-sizing: border-box;
-  font-size: 35rpx;
-  line-height: 40rpx;
-  padding: 20rpx 30rpx;
-  border: 1rpx solid var(--color-gray-max);
-  border-radius: 20rpx;
-  margin-top: 20rpx;
+  font-size: var(--text-lg);
+  line-height: 1.4;
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  border-radius: var(--radius-md);
+  margin-top: var(--space-3);
+  box-shadow: var(--shadow-sm);
 }
 
-.inputColumn {
-  font-size: 35rpx;
-  line-height: 40rpx;
+/* wxml 实际用的是复数 inputColumns，原单数拼写令样式从未生效，两种都保留 */
+.inputColumn,
+.inputColumns {
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--color-black-min);
 }
 
+/* 字数统计等辅助信息 */
 .lengthTips {
   width: 100%;
-  font-size: 26rpx;
+  font-size: var(--text-sm);
   color: var(--color-gray-max);
   text-align: right;
-  margin-right: 10rpx;
-  margin-top: 5rpx;
+  margin-right: var(--space-1);
+  margin-top: var(--space-1);
 }
 
 .submitButton {
-  margin-top: 20rpx;
+  margin-top: var(--space-3);
 }
 
 .footnote {
   /* margin-top: 20rpx; */
-  font-size: 26rpx;
+  font-size: var(--text-sm);
+  line-height: 1.6;
   color: var(--color-gray-max);
 }
 
@@ -91,4 +121,7 @@ image.avatar {
   display: block;
   width: 200rpx;
   height: 200rpx;
+  margin-top: var(--space-2);
+  border-radius: var(--radius-md);
+  background-color: var(--color-gray-light);
 }

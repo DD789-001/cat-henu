@@ -76,7 +76,16 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    return {
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
+      path: '/pages/genealogy/genealogy',
+    }
+  },
+    // 分享到朋友圈（微信限制：不能指定 path，落地页只能是当前页）
+  onShareTimeline: function () {
+    return {
+      title: 'HENU 猫协 - 发现校园身边的猫咪',
+    }
   },
   // 没有权限，返回上一页
   goBack() {
@@ -104,11 +113,14 @@ Page({
   loadCat() {
     if (cat_id===undefined) {
       this.setData({
+        isNewCat: true,
         cat: {
           nickname: [],
           characteristics: [],
           popularity: 0,
         }
+      }, () => {
+        this.checkDraft();
       })
       //说明是新猫
       return false;
@@ -120,9 +132,12 @@ Page({
       res.data.mphoto = String(new Date(res.data.mphoto));
       console.log(res.data.mphoto);
       this.setData({
+        isNewCat: false,
         cat: res.data
       }, () => {
+        this.syncCampusPickerIndex(res.data);
         this.reloadPhotos();
+        this.checkDraft();
         // this.isCharChecked();
       });
     });
@@ -159,7 +174,28 @@ Page({
   },
   // 用户点击加载更多
   clickLoad(e) {
+    if (cat_id === undefined) {
+      wx.showToast({
+        title: '请先点「确定提交」保存猫猫信息',
+        icon: 'none',
+      });
+      return false;
+    }
     this.loadMorePhotos();
+  },
+
+  // 跳转到上传照片页（照片上传功能在 addPhoto 页面，需先有 cat_id）
+  goAddPhoto() {
+    if (cat_id === undefined) {
+      wx.showToast({
+        title: '请先点「确定提交」保存猫猫信息',
+        icon: 'none',
+      });
+      return false;
+    }
+    wx.navigateTo({
+      url: '/pages/genealogy/addPhoto/addPhoto?cat_id=' + cat_id,
+    });
   },
 
   loadMorePhotos() {
@@ -225,6 +261,73 @@ Page({
     });
     return value;
   },
+  // 把出生信息设为「未知」：清空日期即可。
+  // 数据库存空值而不是字面的"未知"，这样 detailCat 的年龄计算（birth.split('-')）
+  // 和 addPhoto 的 start 日期都不会拿到非法值，各处显示层也已用 || 兜底成"未知生日"。
+  setBirthdayUnknown() {
+    this.setData({
+      'cat.birthday': ''
+    });
+    wx.showToast({
+      title: '已设为未知',
+      icon: 'none',
+      duration: 800,
+    });
+  },
+
+  /* ------------------------- 草稿 ------------------------- */
+
+  // 草稿按猫分开存放：新猫用 'new'，已有猫用 cat_id
+  draftKey() {
+    return 'catDraft_' + (cat_id || 'new');
+  },
+
+  // 手动存草稿（只存表单里的 cat，照片是独立记录，不在此列）
+  saveDraft() {
+    wx.setStorageSync(this.draftKey(), {
+      cat: this.data.cat,
+      savedAt: Date.now(),
+    });
+    wx.showToast({
+      title: '草稿已保存',
+      icon: 'success',
+      duration: 1000,
+    });
+  },
+
+  // 进入页面时检测草稿并询问是否恢复
+  checkDraft() {
+    const draft = wx.getStorageSync(this.draftKey());
+    if (!draft || !draft.cat) {
+      return false;
+    }
+    const that = this;
+    const t = new Date(draft.savedAt);
+    const hh = t.getHours();
+    const mm = t.getMinutes();
+    const timeStr = (t.getMonth() + 1) + '月' + t.getDate() + '日 '
+      + (hh < 10 ? '0' + hh : hh) + ':' + (mm < 10 ? '0' + mm : mm);
+
+    wx.showModal({
+      title: '发现未提交的草稿',
+      content: '你在 ' + timeStr + ' 保存过草稿，要恢复吗？',
+      confirmText: '恢复',
+      cancelText: '丢弃',
+      success(res) {
+        if (res.confirm) {
+          that.setData({ cat: draft.cat }, () => {
+            that.syncCampusPickerIndex(draft.cat);
+          });
+          wx.showToast({
+            title: '已恢复草稿',
+            icon: 'success',
+          });
+        } else {
+          wx.removeStorageSync(that.draftKey());
+        }
+      }
+    });
+  },
   // checkBoxChange(e) {
   //   console.log(e);
   //   this.setData({
@@ -252,10 +355,12 @@ Page({
     const index = e.detail.value;
 
     if (column == 0) {  // 修改了校区列内容，区域列变为对应校区的区域
-      var now_campus = pickers.campus_area[0][index];
-      pickers.campus_area[1] = pickers.area_category[now_campus];
+      var campusArea = pickers.campus_area || [[], []];
+      var campuses = campusArea[0] || [];
+      var now_campus = campuses[index];
+      var areas = pickers.area_category[now_campus] || [];
       this.setData({
-        "pickers.campus_area": pickers.campus_area,
+        "pickers.campus_area": [campuses, areas],
         "pickers.campus_index": [index, 0]
       })
     }
@@ -263,35 +368,65 @@ Page({
   bindAreaChange(e) {    // 这个和columnChange的区别是要确认才触发
     var pickers = this.data.pickers;
     const indices = e.detail.value;
+    const campusArea = pickers.campus_area || [[], []];
+    const campuses = campusArea[0] || [];
+    const areas = campusArea[1] || [];
+    const campus = campuses[indices[0]];
+    const area = areas[indices[1]];
+    if (!campus || !area) {
+      wx.showToast({
+        title: '请先配置校区和区域',
+        icon: 'none'
+      });
+      return false;
+    }
     this.setData({
-      'cat.campus': pickers.campus_area[0][indices[0]],
-      'cat.area': pickers.campus_area[1][indices[1]]
+      'cat.campus': campus,
+      'cat.area': area
     });
   },
-  loadPickers() {
-    return new Promise((resolve, reject) => {
-      loadFilter().then(res => {
-        console.log(res);
-        // 把area按campus分类
-        var area_category = {};
-        for (const campus of res.campuses) {
-          area_category[campus] = []
-        }
-        for (const area of res.area) {
-          area_category[area.campus].push(area.name);
-        }
-        var first_campus = res.campuses[0];
-        this.setData({
-          "pickers.area_category": area_category, // wxml实际上不用到这个值，但是更改area picker时的逻辑需要这些数据
-          "pickers.campus_area": [res.campuses, area_category[first_campus]],
-          "pickers.campus_index": [0, 0],
-          "pickers.colour": res.colour,
-        });
-      });
-      resolve(true);
+  async loadPickers() {
+    const res = await loadFilter();
+    console.log(res);
+    // 把area按campus分类
+    const campuses = Array.isArray(res.campuses) ? res.campuses : [];
+    const areas = Array.isArray(res.area) ? res.area : [];
+    var area_category = {};
+    for (const campus of campuses) {
+      area_category[campus] = []
+    }
+    for (const area of areas) {
+      if (area_category[area.campus]) {
+        area_category[area.campus].push(area.name);
+      } else {
+        console.warn('忽略未配置校区的区域', area);
+      }
+    }
+    var first_campus = campuses[0];
+    this.setData({
+      "pickers.area_category": area_category, // wxml实际上不用到这个值，但是更改area picker时的逻辑需要这些数据
+      "pickers.campus_area": [campuses, area_category[first_campus] || []],
+      "pickers.campus_index": [0, 0],
+      "pickers.colour": Array.isArray(res.colour) ? res.colour : [],
+    });
+  },
+  syncCampusPickerIndex(cat) {
+    const pickers = this.data.pickers;
+    const campuses = pickers.campus_area && pickers.campus_area[0] || [];
+    const areaCategory = pickers.area_category || {};
+    const campusIndex = campuses.indexOf(cat.campus);
+    if (campusIndex < 0) {
+      return;
+    }
+    const areas = areaCategory[cat.campus] || [];
+    const areaIndex = areas.indexOf(cat.area);
+    this.setData({
+      "pickers.campus_area": [campuses, areas],
+      "pickers.campus_index": [campusIndex, areaIndex < 0 ? 0 : areaIndex],
     });
   },
   upload() {
+    const draftKey = this.draftKey(); // 提交前先记下草稿 key：新猫提交成功后 cat_id 会变
     wx.showLoading({
       title: '更新中...',
     });
@@ -306,6 +441,7 @@ Page({
       if (res.result._id) {
         cat_id = res.result._id;
       }
+      wx.removeStorageSync(draftKey); // 提交成功，草稿作废
 
       // wx.hideLoading();
 

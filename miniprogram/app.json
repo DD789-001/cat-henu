@@ -31,7 +31,7 @@
     "pages/organization/detailorgcat/detailorgcat"
   ],
   "tabBar": {
-    "selectedColor": "#000",
+    "selectedColor": "#3C5CA8",
     "borderStyle": "white",
     "list": [
       {
@@ -57,9 +57,9 @@
   "window": {
     "backgroundColor": "#fff",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#ffd101",
+    "navigationBarBackgroundColor": "#3C5CA8",
     "navigationBarTitleText": "HENU 猫协",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json"
 }

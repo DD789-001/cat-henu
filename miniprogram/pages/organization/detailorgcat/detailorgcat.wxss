@@ -1,11 +1,17 @@
 /* miniprogram/pages/organization/detailorgcat/detailorgcat.wxss */
 @import "../../genealogy/detailCat/detailCat.wxss";
 
+/* 覆盖被引入页面的底色，统一为全站页面底色 */
+page {
+  background-color: var(--color-bg);
+}
+
 .ad-title {
   text-align: center;
   height: 36rpx;
-  font-size: 22rpx;
+  font-size: var(--text-xs);
   line-height: 36rpx;
+  letter-spacing: 2rpx;
   color: var(--color-gray-max);
   background-color: var(--color-gray-light);
 }
